@@ -8,7 +8,8 @@
 import UIKit
 import ARKit
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    
+    var player: AVAudioPlayer?
+
     @IBOutlet weak var catchLabel: UILabel!
     @IBOutlet weak var basketballCollectionView: UICollectionView!
     @IBOutlet weak var golfCollectionView: UICollectionView!
@@ -35,7 +36,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         //Session configuring and running operation
         sceneView.autoenablesDefaultLighting = true
-        //sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin]
+//        sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin]
         sceneView.session.run(configuration)
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap) )
         self.sceneView.addGestureRecognizer(tapGestureRecognizer)
@@ -45,12 +46,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     
     override func viewDidAppear(_ animated: Bool) {
+        //Initial Hint for tapping
         UIView.animate(withDuration: 2, animations: {
             self.catchLabel.alpha = 1
         }, completion: {(terminated) in UIView.animate(withDuration: 2, animations: {
             self.catchLabel.alpha = 0
         })
         })
+        
+        //Starts game's song
+        playSound(filename: "ukulele", fileextension: "mp3", volume: 0.02)
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,6 +63,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         // Dispose of any resources that can be recreated.
     }
     
+// Custom animation applied after tapping on object
+    func slideDown(_ node:SCNNode){
+        let fadeOutAction = SCNAction.fadeOut(duration: 1)
+        let moveToOriginAction = SCNAction.move(to: SCNVector3(0,0,0), duration: 1)
+        node.runAction(fadeOutAction, completionHandler: {node.removeFromParentNode()
+        })
+        node.runAction(moveToOriginAction)
+    }
     
     @objc func handleTap(sender: UITapGestureRecognizer) {
         let sceneViewTappedOn = sender.view as! SCNView
@@ -72,20 +85,20 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let node = results.node
             let name = results.node.name
             
+            slideDown(node)
             if(name == "Basketball"){
-                node.removeFromParentNode()
+                //node.removeFromParentNode()
                 basketballImages.append(basketballImage!)
                 basketballCollectionView.reloadData()
             }else if(name == "GolfBall"){
-                node.removeFromParentNode()
+                //node.removeFromParentNode()
                 golfImages.append(golfBallImage!)
                 golfCollectionView.reloadData()
             }else {
-                node.removeFromParentNode()
+               //node.removeFromParentNode()
                 nerfImages.append(nerfImage!)
                 nerfCollectionView.reloadData()
             }
-            
         }
     }
     
@@ -159,9 +172,25 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             cell.imageView.image = nerfImages[indexPath.row]
             return cell
         }
+    }
+    
+    //AUDIO SETTINGS
+    func playSound(filename:String, fileextension:String, volume:Float) {
+        guard let url = Bundle.main.url(forResource: filename, withExtension: fileextension) else { return }
         
-        
-        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            player = try AVAudioPlayer(contentsOf: url)
+            guard let player = player else { return }
+            
+            player.volume = volume
+            player.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
     
 }

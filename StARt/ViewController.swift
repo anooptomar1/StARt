@@ -100,11 +100,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return node!
     }
     
-    
+//    Generates 20 random models
     func load3DModels() {
         
         for _ in 0..<total3DModelsNumber {
-            let randomIndex = randomNumbers(firstNum: 0, secondNum: 2)
+            let randomIndex = Int(randomNumbers(firstNum: 0, secondNum: 3))
+            
             switch(randomIndex) {
             case 0: basketBallsCollection.append(addNode(sceneName: "Media.scnassets/Basketball.scn"))
                 

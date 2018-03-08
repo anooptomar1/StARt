@@ -56,7 +56,7 @@
         <!--View Controller-->
         <scene sceneID="nmG-xP-i3a">
             <objects>
-                <viewController id="aoN-iV-Gk2" customClass="ViewController" customModule="EasyLearn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="aoN-iV-Gk2" customClass="ViewController" customModule="StARt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Dis-Fc-rkF">
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -82,7 +82,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="golfCell" id="O3f-Eh-yzZ" customClass="GolfCollectionViewCell" customModule="EasyLearn" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="golfCell" id="O3f-Eh-yzZ" customClass="GolfCollectionViewCell" customModule="StARt" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -119,7 +119,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CATCH OBJECTS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wxa-Jg-kVb">
-                                <rect key="frame" x="90.5" y="153" width="486" height="70"/>
+                                <rect key="frame" x="120" y="153" width="427.5" height="70"/>
                                 <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="60"/>
                                 <color key="textColor" red="0.93248218297958374" green="0.75322026014328003" blue="0.25863081216812134" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -135,7 +135,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="basketballCell" id="B4c-RI-BCZ" customClass="BasketballCollectionViewCell" customModule="EasyLearn" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="basketballCell" id="B4c-RI-BCZ" customClass="BasketballCollectionViewCell" customModule="StARt" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -182,7 +182,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="nerfCell" id="Xxf-fn-256" customClass="NerfCollectionViewCell" customModule="EasyLearn" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="nerfCell" id="Xxf-fn-256" customClass="NerfCollectionViewCell" customModule="StARt" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -243,37 +243,11 @@
         <!--Games Menu View Controller-->
         <scene sceneID="0iG-z6-aKS">
             <objects>
-                <viewController id="6E3-AN-Wsz" customClass="GamesMenuViewController" customModule="EasyLearn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6E3-AN-Wsz" customClass="GamesMenuViewController" customModule="StARt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qqq-Ap-DjW">
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="XZy-Yw-8J3">
-                                <rect key="frame" x="121" y="128" width="425" height="120"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ih1-1j-AuA">
-                                        <rect key="frame" x="0.0" y="0.0" width="125" height="120"/>
-                                        <color key="backgroundColor" red="0.96775203943252563" green="0.81232351064682007" blue="0.28215229511260986" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="22"/>
-                                        <inset key="contentEdgeInsets" minX="0.0" minY="47" maxX="0.0" maxY="47"/>
-                                        <state key="normal" title="Basket"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRf-Jq-eyJ">
-                                        <rect key="frame" x="150" y="0.0" width="125" height="120"/>
-                                        <color key="backgroundColor" red="1" green="0.81486171000853891" blue="0.28592714766156302" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="22"/>
-                                        <inset key="contentEdgeInsets" minX="0.0" minY="47" maxX="0.0" maxY="47"/>
-                                        <state key="normal" title="Holes"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KfK-et-sCC">
-                                        <rect key="frame" x="300" y="0.0" width="125" height="120"/>
-                                        <color key="backgroundColor" red="0.96383613348007202" green="0.80836194753646851" blue="0.286080002784729" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="22"/>
-                                        <inset key="contentEdgeInsets" minX="19" minY="47" maxX="20" maxY="47"/>
-                                        <state key="normal" title="Balloons"/>
-                                    </button>
-                                </subviews>
-                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iHy-4W-yyI">
                                 <rect key="frame" x="10" y="10" width="104" height="50"/>
                                 <state key="normal" title="Button" image="BackArrow"/>
@@ -281,14 +255,30 @@
                                     <segue destination="aoN-iV-Gk2" kind="showDetail" id="Ltb-W0-um2"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ih1-1j-AuA">
+                                <rect key="frame" x="116" y="168" width="70" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.96775203943252563" green="0.81232351064682007" blue="0.28215229511260986" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="22"/>
+                                <state key="normal" title="Basket"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KfK-et-sCC">
+                                <rect key="frame" x="417" y="112.5" width="150" height="150"/>
+                                <color key="backgroundColor" red="0.96383613348007202" green="0.80836194753646851" blue="0.286080002784729" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="J1G-TV-5kg"/>
+                                    <constraint firstAttribute="height" constant="150" id="RGW-rr-eJw"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="Balloons"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="XZy-Yw-8J3" firstAttribute="centerY" secondItem="qqq-Ap-DjW" secondAttribute="centerY" id="CPw-Km-3bi"/>
                             <constraint firstItem="iHy-4W-yyI" firstAttribute="leading" secondItem="vgp-gQ-xyu" secondAttribute="leading" constant="10" id="EQ0-H2-UmL"/>
+                            <constraint firstItem="vgp-gQ-xyu" firstAttribute="trailing" secondItem="KfK-et-sCC" secondAttribute="trailing" constant="100" id="H3i-xJ-R5W"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="iHy-4W-yyI" secondAttribute="trailing" constant="20" symbolic="YES" id="azr-8O-qmo"/>
-                            <constraint firstItem="XZy-Yw-8J3" firstAttribute="centerX" secondItem="qqq-Ap-DjW" secondAttribute="centerX" id="dyX-5V-O2k"/>
                             <constraint firstItem="iHy-4W-yyI" firstAttribute="top" secondItem="vgp-gQ-xyu" secondAttribute="top" constant="10" id="isg-Un-IXH"/>
+                            <constraint firstItem="KfK-et-sCC" firstAttribute="centerY" secondItem="qqq-Ap-DjW" secondAttribute="centerY" id="t9O-ph-thN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vgp-gQ-xyu"/>
                     </view>
@@ -300,11 +290,12 @@
     </scenes>
     <resources>
         <image name="BackArrow" width="50" height="50"/>
+        <image name="Balloons" width="100" height="100"/>
         <image name="LaunchScreen" width="1280" height="720"/>
         <image name="PlayButton" width="439" height="173"/>
         <image name="Zaino" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ha1-iH-tgT"/>
+        <segue reference="Ltb-W0-um2"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -36,7 +36,7 @@ class BasketController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
+//        self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
         self.configuration.planeDetection = .horizontal
         self.sceneView.session.run(configuration)
         self.sceneView.autoenablesDefaultLighting = true
@@ -80,9 +80,9 @@ class BasketController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactDel
             
             ball.physicsBody?.applyForce(SCNVector3(orientation.x*power, orientation.y*power, orientation.z*power), asImpulse: true)
             
-            ball.physicsBody?.categoryBitMask = BitMaskCategory.ball.rawValue
-            ball.physicsBody?.contactTestBitMask = BitMaskCategory.target.rawValue
-            
+//            ball.physicsBody?.categoryBitMask = BitMaskCategory.ball.rawValue
+//            ball.physicsBody?.contactTestBitMask = BitMaskCategory.target.rawValue
+//            
             self.sceneView.scene.rootNode.addChildNode(ball)
         }
         
@@ -100,15 +100,15 @@ class BasketController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactDel
     
     func addBasket(hitTestResult: ARHitTestResult){
         
-        let basketScene = SCNScene(named: "Palla.scnassets/Basketball.scn")
+        let basketScene = SCNScene(named: "Media.scnassets/BasketField.scn")
         
         let basketNode = basketScene?.rootNode.childNode(withName: "Basket", recursively: false)
         
         let collider = basketNode?.childNode(withName: "collider", recursively: false)
         
-        collider?.physicsBody?.contactTestBitMask = BitMaskCategory.target.rawValue
-        collider?.physicsBody?.contactTestBitMask = BitMaskCategory.ball.rawValue
-        
+//        collider?.physicsBody?.contactTestBitMask = BitMaskCategory.target.rawValue
+//        collider?.physicsBody?.contactTestBitMask = BitMaskCategory.ball.rawValue
+//
         let positionOfPlane = hitTestResult.worldTransform.columns.3
         let xPosition = positionOfPlane.x
         let yPosition = positionOfPlane.y

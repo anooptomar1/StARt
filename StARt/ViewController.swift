@@ -26,7 +26,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var golfBallsCollection = [SCNNode]()
     var nerfDartsCollection = [SCNNode]()
     
-    let modelsNumber = 10
+    let total3DModelsNumber = 20
     
     @IBOutlet weak var sceneView: ARSCNView!
     let configuration = ARWorldTrackingConfiguration()
@@ -103,10 +103,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     
     func load3DModels() {
-        for _ in 0..<modelsNumber {
-            basketBallsCollection.append(addNode(sceneName: "Media.scnassets/Basketball.scn"))
-            golfBallsCollection.append(addNode(sceneName: "Media.scnassets/Golfball.scn"))
-            nerfDartsCollection.append(addNode(sceneName: "Media.scnassets/Nerf.scn"))
+        
+        for _ in 0..<total3DModelsNumber {
+            let randomIndex = randomNumbers(firstNum: 0, secondNum: 2)
+            switch(randomIndex) {
+            case 0: basketBallsCollection.append(addNode(sceneName: "Media.scnassets/Basketball.scn"))
+
+            case 1: golfBallsCollection.append(addNode(sceneName: "Media.scnassets/Golfball.scn"))
+
+            case 2: nerfDartsCollection.append(addNode(sceneName: "Media.scnassets/Nerf.scn"))
+        
+            default: return
+                
+            }
         }
     }
     

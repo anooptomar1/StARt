@@ -47,7 +47,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         print("called viewdidLoad")
         load3DModels()
         fillURLArray()
-       
+        
+      
     }
     
     

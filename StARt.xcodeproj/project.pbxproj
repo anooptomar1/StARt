@@ -21,6 +21,7 @@
 		5A3181AB20509377003657AF /* GamesMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3181A720509377003657AF /* GamesMenuViewController.swift */; };
 		5A3181AE20512D51003657AF /* placeholder in Resources */ = {isa = PBXBuildFile; fileRef = 5A3181AD20512D51003657AF /* placeholder */; };
 		5A3181B020512F5F003657AF /* ciao fons in Resources */ = {isa = PBXBuildFile; fileRef = 5A3181AF20512F5F003657AF /* ciao fons */; };
+		5A3181B42051347B003657AF /* prova in Resources */ = {isa = PBXBuildFile; fileRef = 5A3181B32051347B003657AF /* prova */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		5A3181A720509377003657AF /* GamesMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesMenuViewController.swift; sourceTree = "<group>"; };
 		5A3181AD20512D51003657AF /* placeholder */ = {isa = PBXFileReference; lastKnownFileType = text; path = placeholder; sourceTree = "<group>"; };
 		5A3181AF20512F5F003657AF /* ciao fons */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ciao fons"; sourceTree = "<group>"; };
+		5A3181B32051347B003657AF /* prova */ = {isa = PBXFileReference; lastKnownFileType = text; path = prova; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 			children = (
 				5A3181AD20512D51003657AF /* placeholder */,
 				5A3181AF20512F5F003657AF /* ciao fons */,
+				5A3181B32051347B003657AF /* prova */,
 			);
 			path = Textures;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 				5A3181B020512F5F003657AF /* ciao fons in Resources */,
 				5A31819520508F75003657AF /* LaunchScreen.storyboard in Resources */,
 				5A31819320508F69003657AF /* Assets.xcassets in Resources */,
+				5A3181B42051347B003657AF /* prova in Resources */,
 				5A31819720508F81003657AF /* Info.plist in Resources */,
 				5A31819120508F5A003657AF /* Fonts in Resources */,
 			);

@@ -15,6 +15,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet weak var golfCollectionView: UICollectionView!
     @IBOutlet weak var nerfCollectionView: UICollectionView!
     
+    var countedObjects = 0
+    var numbersAudioURLContainer:[URL]?
+
+    
     //Arrays and images for  collection views
     let basketballImage = UIImage(named: "Basketball")
     let golfBallImage = UIImage(named: "GolfBall")
@@ -42,6 +46,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         print("called viewdidLoad")
         load3DModels()
+        fillURLArray()
        
     }
     
@@ -86,6 +91,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let node = results.node
             let name = results.node.name
             
+            playSoundAtIndex(index: countedObjects)
+            countedObjects+=1
             slideDown(node)
             if(name == "Basketball"){
                 //node.removeFromParentNode()
@@ -193,6 +200,40 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             print(error.localizedDescription)
         }
     }
+    
+    func fillURLArray() {
+        //in questo modo ottengo un array di url (dai quali ottengo i file mp3), l'array è ordinato a seconda della disposizione dei file nella directory audioFiles
+        numbersAudioURLContainer = []
+        for index in 0...19 {
+            if NSLocale.current.languageCode == "it" {
+                guard let url = Bundle.main.url(forResource: "NumbersIT/\(index+1)", withExtension: "wav") else { return}
+                numbersAudioURLContainer?.insert(url, at: index)
+            }else {
+                guard let url = Bundle.main.url(forResource: "NumbersEN/\(index+1)", withExtension: "wav") else { return}
+                numbersAudioURLContainer?.insert(url, at: index)
+            }
+        }
+    }
+    
+    func playSoundAtIndex(index:Int) {
+        //array già riempito grazie alla funzione fillArrayUrl
+        let url = numbersAudioURLContainer![index]
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            player = try AVAudioPlayer(contentsOf: url)
+            
+            guard let player = player else { return }
+            
+            player.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    //END AUDIO SETTINGS
     
 }
 

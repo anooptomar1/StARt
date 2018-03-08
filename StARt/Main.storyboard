@@ -28,9 +28,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5hH-T6-apN">
-                                <rect key="frame" x="509" y="158" width="158" height="77"/>
-                                <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
-                                <state key="normal" image="PlayButton"/>
+                                <rect key="frame" x="525" y="154" width="122" height="53"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                                <state key="normal" backgroundImage="Join"/>
                                 <connections>
                                     <segue destination="aoN-iV-Gk2" kind="show" id="ha1-iH-tgT"/>
                                 </connections>
@@ -38,14 +39,14 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="5hH-T6-apN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="509" id="0Ef-La-oNc"/>
                             <constraint firstItem="ZNk-LU-NQs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="2ak-34-GBQ"/>
-                            <constraint firstItem="5hH-T6-apN" firstAttribute="trailing" secondItem="ZNk-LU-NQs" secondAttribute="trailing" id="Adi-j5-9yW"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5hH-T6-apN" secondAttribute="bottom" constant="168" id="56F-7d-5eI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ZNk-LU-NQs" secondAttribute="bottom" id="Hhf-Qu-7G5"/>
                             <constraint firstItem="ZNk-LU-NQs" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Lcy-7W-BJ7"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5hH-T6-apN" secondAttribute="bottom" constant="140" id="Xfl-p8-O8A"/>
+                            <constraint firstItem="5hH-T6-apN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="154" id="QqG-fC-JZs"/>
+                            <constraint firstItem="5hH-T6-apN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="525" id="d7T-EK-N8M"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZNk-LU-NQs" secondAttribute="trailing" id="fH2-DT-NJd"/>
-                            <constraint firstItem="5hH-T6-apN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="158" id="wk5-Fu-UaO"/>
+                            <constraint firstItem="5hH-T6-apN" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="tn5-6r-L3K"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -320,13 +321,12 @@
         <image name="BackArrow" width="50" height="50"/>
         <image name="Balloons" width="202" height="202"/>
         <image name="Basket" width="202" height="202"/>
+        <image name="Join" width="408" height="177"/>
         <image name="LaunchScreen" width="1280" height="720"/>
-        <image name="PlayButton" width="439" height="173"/>
         <image name="TapHint" width="200" height="200"/>
         <image name="Zaino" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5mE-Dc-cU4"/>
-        <segue reference="Ltb-W0-um2"/>
+        <segue reference="ha1-iH-tgT"/>
     </inferredMetricsTieBreakers>
 </document>

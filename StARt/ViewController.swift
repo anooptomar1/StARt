@@ -10,7 +10,7 @@ import ARKit
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     var player: AVAudioPlayer?
 
-    @IBOutlet weak var catchLabel: UILabel!
+    @IBOutlet weak var tapHintImageView: UIImageView!
     @IBOutlet weak var basketballCollectionView: UICollectionView!
     @IBOutlet weak var golfCollectionView: UICollectionView!
     @IBOutlet weak var nerfCollectionView: UICollectionView!
@@ -33,7 +33,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //Session configuring and running operation
         sceneView.autoenablesDefaultLighting = true
 //        sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin]
@@ -41,21 +40,20 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap) )
         self.sceneView.addGestureRecognizer(tapGestureRecognizer)
         
+        print("called viewdidLoad")
         load3DModels()
+       
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         //Initial Hint for tapping
         UIView.animate(withDuration: 2, animations: {
-            self.catchLabel.alpha = 1
+            self.tapHintImageView.alpha = 1
         }, completion: {(terminated) in UIView.animate(withDuration: 2, animations: {
-            self.catchLabel.alpha = 0
+            self.tapHintImageView.alpha = 0
         })
         })
-        
-        //Starts game's song
-        playSound(filename: "ukulele", fileextension: "mp3", volume: 0.02)
     }
     
     override func didReceiveMemoryWarning() {
@@ -65,6 +63,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
 // Custom animation applied after tapping on object
     func slideDown(_ node:SCNNode){
+//        let collectionViewX = basketballCollectionView.frame.origin.x
+//        let collectionViewY = basketballCollectionView.frame.origin.y
+        
         let fadeOutAction = SCNAction.fadeOut(duration: 1)
         let moveToOriginAction = SCNAction.move(to: SCNVector3(0,0,0), duration: 1)
         node.runAction(fadeOutAction, completionHandler: {node.removeFromParentNode()

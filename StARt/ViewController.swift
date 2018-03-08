@@ -118,6 +118,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         node?.eulerAngles = SCNVector3(randomNumbers(firstNum: CGFloat(0.degreesToRadians), secondNum: CGFloat(360.degreesToRadians)),randomNumbers(firstNum: CGFloat(0.degreesToRadians), secondNum: CGFloat(360.degreesToRadians)),randomNumbers(firstNum: CGFloat(0.degreesToRadians), secondNum: CGFloat(360.degreesToRadians))
         )
         
+        let animRotate = SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 360, z: 0, duration: 300))
+        let moveForw = SCNAction.moveBy(x: 1, y: 0, z: 0, duration: 10)
+        let moveBack = SCNAction.moveBy(x: -1, y: 0, z: 0, duration: 10)
+        let moveGroup = SCNAction.sequence([moveForw,moveBack])
+        
+        node?.runAction(animRotate)
+        node?.runAction(moveGroup)
+        
         self.sceneView.scene.rootNode.addChildNode(node!)
         return node!
     }

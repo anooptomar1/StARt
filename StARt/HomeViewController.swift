@@ -13,8 +13,14 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var joinButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        joinButton.layer.cornerRadius = 10
-        // Do any additional setup after loading the view.
+        var imgArray = [UIImage]()
+        imgArray.append(UIImage(named:"JoinITA-1")!)
+        imgArray.append(UIImage(named:"JoinITA-2")!)
+        
+        joinButton.imageView?.animationImages = imgArray
+        joinButton.imageView?.animationDuration = 0.5
+        joinButton.imageView?.animationRepeatCount = 10000
+        joinButton.imageView?.startAnimating()
     }
 
     override func didReceiveMemoryWarning() {
@@ -23,14 +29,5 @@ class HomeViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }

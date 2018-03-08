@@ -29,7 +29,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     @IBOutlet weak var sceneView: ARSCNView!
     let configuration = ARWorldTrackingConfiguration()
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -107,11 +107,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let randomIndex = randomNumbers(firstNum: 0, secondNum: 2)
             switch(randomIndex) {
             case 0: basketBallsCollection.append(addNode(sceneName: "Media.scnassets/Basketball.scn"))
-
+                
             case 1: golfBallsCollection.append(addNode(sceneName: "Media.scnassets/Golfball.scn"))
-
+                
             case 2: nerfDartsCollection.append(addNode(sceneName: "Media.scnassets/Nerf.scn"))
-        
+                
             default: return
                 
             }

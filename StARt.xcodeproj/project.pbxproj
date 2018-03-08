@@ -67,7 +67,6 @@
 		5A31817B20508E99003657AF /* StARt */ = {
 			isa = PBXGroup;
 			children = (
-				5A3181AC20512BF7003657AF /* Textures */,
 				5A31819020508F5A003657AF /* Fonts */,
 				5A31817C20508E99003657AF /* AppDelegate.swift */,
 				5A31819820508FB2003657AF /* ViewController.swift */,
@@ -82,13 +81,6 @@
 				5A31819A20508FBB003657AF /* Media.scnassets */,
 			);
 			path = StARt;
-			sourceTree = "<group>";
-		};
-		5A3181AC20512BF7003657AF /* Textures */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Textures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

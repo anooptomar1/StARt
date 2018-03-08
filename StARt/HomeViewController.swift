@@ -21,6 +21,7 @@ class HomeViewController: UIViewController {
         joinButton.imageView?.animationDuration = 0.5
         joinButton.imageView?.animationRepeatCount = 10000
         joinButton.imageView?.startAnimating()
+        
     }
 
     override func didReceiveMemoryWarning() {

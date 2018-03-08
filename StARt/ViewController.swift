@@ -150,9 +150,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     
-    func randomNumbers(firstNum: CGFloat, secondNum: CGFloat) -> CGFloat {
-        return CGFloat(arc4random()) / CGFloat(UINT32_MAX) * abs(firstNum - secondNum) + min(firstNum, secondNum)
-    }
+    
     
     //Collection View delegate methods
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -244,6 +242,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     //END AUDIO SETTINGS
     
+}
+func randomNumbers(firstNum: CGFloat, secondNum: CGFloat) -> CGFloat {
+    return CGFloat(arc4random()) / CGFloat(UINT32_MAX) * abs(firstNum - secondNum) + min(firstNum, secondNum)
 }
 
 extension Int {

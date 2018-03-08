@@ -387,28 +387,29 @@
                                 <rect key="frame" x="321.5" y="175.5" width="24" height="24"/>
                                 <state key="normal" image="Plus"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kfv-0T-edH">
-                                <rect key="frame" x="297.5" y="315" width="73" height="30"/>
-                                <state key="normal" title="Add target"/>
-                                <connections>
-                                    <action selector="addTargets:" destination="TPr-0y-qAQ" eventType="touchUpInside" id="wqH-ov-Wa5"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="spP-Sp-Cla">
+                                <rect key="frame" x="333.5" y="355" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="45"/>
+                                <color key="textColor" red="0.99999064207077026" green="0.99999362230300903" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="d4G-b1-Yam" firstAttribute="trailing" secondItem="ZKH-wG-fLq" secondAttribute="trailing" id="0oA-N7-9fR"/>
-                            <constraint firstItem="d4G-b1-Yam" firstAttribute="bottom" secondItem="Kfv-0T-edH" secondAttribute="bottom" constant="30" id="2Jl-bK-Jlo"/>
                             <constraint firstItem="IcV-RS-fJa" firstAttribute="centerX" secondItem="8gf-3j-RSg" secondAttribute="centerX" id="3x2-UM-h5q"/>
                             <constraint firstItem="d4G-b1-Yam" firstAttribute="bottom" secondItem="ZKH-wG-fLq" secondAttribute="bottom" id="A5Y-OF-mVe"/>
+                            <constraint firstItem="spP-Sp-Cla" firstAttribute="centerX" secondItem="8gf-3j-RSg" secondAttribute="centerX" id="ArS-Fv-bRz"/>
+                            <constraint firstItem="d4G-b1-Yam" firstAttribute="bottom" secondItem="spP-Sp-Cla" secondAttribute="bottom" constant="20" id="IEh-Db-hFx"/>
                             <constraint firstItem="ZKH-wG-fLq" firstAttribute="top" secondItem="d4G-b1-Yam" secondAttribute="top" id="Ih0-Rq-yQy"/>
-                            <constraint firstItem="Kfv-0T-edH" firstAttribute="centerX" secondItem="8gf-3j-RSg" secondAttribute="centerX" id="OKq-uF-Y32"/>
                             <constraint firstItem="ZKH-wG-fLq" firstAttribute="leading" secondItem="d4G-b1-Yam" secondAttribute="leading" id="QxH-8u-7TZ"/>
                             <constraint firstItem="IcV-RS-fJa" firstAttribute="centerY" secondItem="8gf-3j-RSg" secondAttribute="centerY" id="cCu-bN-fIe"/>
+                            <constraint firstItem="spP-Sp-Cla" firstAttribute="centerX" secondItem="8gf-3j-RSg" secondAttribute="centerX" id="duV-Ey-xgM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="d4G-b1-Yam"/>
                     </view>
                     <connections>
+                        <outlet property="colorLabel" destination="spP-Sp-Cla" id="MX0-hf-Zvt"/>
                         <outlet property="sceneView" destination="ZKH-wG-fLq" id="TUU-vB-roi"/>
                     </connections>
                 </viewController>

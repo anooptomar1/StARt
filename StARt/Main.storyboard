@@ -255,30 +255,29 @@
                                     <segue destination="aoN-iV-Gk2" kind="showDetail" id="Ltb-W0-um2"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ih1-1j-AuA">
-                                <rect key="frame" x="116" y="168" width="70" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.96775203943252563" green="0.81232351064682007" blue="0.28215229511260986" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="22"/>
-                                <state key="normal" title="Basket"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KfK-et-sCC">
-                                <rect key="frame" x="417" y="112.5" width="150" height="150"/>
-                                <color key="backgroundColor" red="0.96383613348007202" green="0.80836194753646851" blue="0.286080002784729" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="J1G-TV-5kg"/>
-                                    <constraint firstAttribute="height" constant="150" id="RGW-rr-eJw"/>
-                                </constraints>
-                                <state key="normal" backgroundImage="Balloons"/>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="lo8-ml-K9v">
+                                <rect key="frame" x="232.5" y="72" width="202" height="231.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBW-ty-oEu">
+                                        <rect key="frame" x="0.0" y="0.0" width="202" height="202"/>
+                                        <state key="normal" backgroundImage="Balloons"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balloons color" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fkU-B1-czm">
+                                        <rect key="frame" x="20" y="202" width="162" height="29.5"/>
+                                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="25"/>
+                                        <color key="textColor" red="0.42972058057785034" green="0.75312197208404541" blue="0.97650450468063354" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="lo8-ml-K9v" firstAttribute="centerX" secondItem="qqq-Ap-DjW" secondAttribute="centerX" id="9Xw-Cq-5dT"/>
                             <constraint firstItem="iHy-4W-yyI" firstAttribute="leading" secondItem="vgp-gQ-xyu" secondAttribute="leading" constant="10" id="EQ0-H2-UmL"/>
-                            <constraint firstItem="vgp-gQ-xyu" firstAttribute="trailing" secondItem="KfK-et-sCC" secondAttribute="trailing" constant="100" id="H3i-xJ-R5W"/>
+                            <constraint firstItem="lo8-ml-K9v" firstAttribute="centerY" secondItem="qqq-Ap-DjW" secondAttribute="centerY" id="OrB-ZP-Dsp"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="iHy-4W-yyI" secondAttribute="trailing" constant="20" symbolic="YES" id="azr-8O-qmo"/>
                             <constraint firstItem="iHy-4W-yyI" firstAttribute="top" secondItem="vgp-gQ-xyu" secondAttribute="top" constant="10" id="isg-Un-IXH"/>
-                            <constraint firstItem="KfK-et-sCC" firstAttribute="centerY" secondItem="qqq-Ap-DjW" secondAttribute="centerY" id="t9O-ph-thN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vgp-gQ-xyu"/>
                     </view>
@@ -290,7 +289,7 @@
     </scenes>
     <resources>
         <image name="BackArrow" width="50" height="50"/>
-        <image name="Balloons" width="100" height="100"/>
+        <image name="Balloons" width="202" height="202"/>
         <image name="LaunchScreen" width="1280" height="720"/>
         <image name="PlayButton" width="439" height="173"/>
         <image name="Zaino" width="128" height="128"/>

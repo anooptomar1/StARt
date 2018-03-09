@@ -47,7 +47,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap) )
         self.sceneView.addGestureRecognizer(tapGestureRecognizer)
         
-        print("called viewdidLoad")
         load3DModels()
         fillURLArray()
     }

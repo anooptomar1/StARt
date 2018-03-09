@@ -282,6 +282,9 @@
                                     <segue destination="aoN-iV-Gk2" kind="showDetail" id="Ltb-W0-um2"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background-1" translatesAutoresizingMaskIntoConstraints="NO" id="wtu-ne-pNB">
+                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="vfa-3B-1gj">
                                 <rect key="frame" x="123.5" y="72" width="419" height="231.5"/>
                                 <subviews>
@@ -327,13 +330,24 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="iHy-4W-yyI" firstAttribute="leading" secondItem="vgp-gQ-xyu" secondAttribute="leading" constant="10" id="EQ0-H2-UmL"/>
+                            <constraint firstItem="wtu-ne-pNB" firstAttribute="top" secondItem="vgp-gQ-xyu" secondAttribute="top" id="GCH-lL-zju"/>
+                            <constraint firstItem="wtu-ne-pNB" firstAttribute="leading" secondItem="vgp-gQ-xyu" secondAttribute="leading" id="L5J-Lk-MWb"/>
+                            <constraint firstItem="wtu-ne-pNB" firstAttribute="top" secondItem="vgp-gQ-xyu" secondAttribute="top" id="SBo-VZ-Son"/>
                             <constraint firstItem="vfa-3B-1gj" firstAttribute="centerX" secondItem="qqq-Ap-DjW" secondAttribute="centerX" id="SMJ-Bx-zCn"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="iHy-4W-yyI" secondAttribute="trailing" constant="20" symbolic="YES" id="azr-8O-qmo"/>
+                            <constraint firstItem="wtu-ne-pNB" firstAttribute="bottom" secondItem="vgp-gQ-xyu" secondAttribute="bottom" id="e6i-ci-VUn"/>
                             <constraint firstItem="iHy-4W-yyI" firstAttribute="top" secondItem="vgp-gQ-xyu" secondAttribute="top" constant="10" id="isg-Un-IXH"/>
+                            <constraint firstItem="wtu-ne-pNB" firstAttribute="trailing" secondItem="vgp-gQ-xyu" secondAttribute="trailing" id="jcg-Zi-xsa"/>
+                            <constraint firstItem="wtu-ne-pNB" firstAttribute="leading" secondItem="vgp-gQ-xyu" secondAttribute="leading" id="pC0-lV-hZE"/>
+                            <constraint firstItem="vgp-gQ-xyu" firstAttribute="trailing" secondItem="wtu-ne-pNB" secondAttribute="trailing" id="v0q-yz-zYY"/>
+                            <constraint firstItem="vgp-gQ-xyu" firstAttribute="bottom" secondItem="wtu-ne-pNB" secondAttribute="bottom" id="zil-ok-yIX"/>
                             <constraint firstItem="vfa-3B-1gj" firstAttribute="centerY" secondItem="qqq-Ap-DjW" secondAttribute="centerY" id="zxv-iS-Fh1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vgp-gQ-xyu"/>
                     </view>
+                    <connections>
+                        <outlet property="menuImageView" destination="wtu-ne-pNB" id="mgC-Xd-0VP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4O-RJ-5Vs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -354,9 +368,9 @@
                                 <rect key="frame" x="321.5" y="175.5" width="24" height="24"/>
                                 <state key="normal" image="Plus"/>
                             </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PLANE DETECTED" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkS-eT-Chm">
-                                <rect key="frame" x="237.5" y="20" width="193" height="29.5"/>
-                                <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="25"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jS0-N6-ck6">
+                                <rect key="frame" x="60" y="50" width="96.5" height="47"/>
+                                <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="40"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -366,17 +380,18 @@
                             <constraint firstItem="eYs-TS-aWt" firstAttribute="top" secondItem="C58-bW-rG8" secondAttribute="top" id="5se-a0-Pwn"/>
                             <constraint firstItem="eYs-TS-aWt" firstAttribute="leading" secondItem="C58-bW-rG8" secondAttribute="leading" id="6C7-es-YSd"/>
                             <constraint firstItem="C58-bW-rG8" firstAttribute="trailing" secondItem="eYs-TS-aWt" secondAttribute="trailing" id="DcW-sY-tWT"/>
+                            <constraint firstItem="jS0-N6-ck6" firstAttribute="top" secondItem="C58-bW-rG8" secondAttribute="top" constant="50" id="I5P-o4-jYU"/>
                             <constraint firstItem="ro9-7d-kUP" firstAttribute="centerX" secondItem="gc5-Em-gOb" secondAttribute="centerX" id="Icq-sR-4ux"/>
+                            <constraint firstItem="jS0-N6-ck6" firstAttribute="leading" secondItem="C58-bW-rG8" secondAttribute="leading" constant="60" id="MoB-51-Wnc"/>
                             <constraint firstItem="C58-bW-rG8" firstAttribute="bottom" secondItem="eYs-TS-aWt" secondAttribute="bottom" id="VyN-32-k87"/>
                             <constraint firstItem="ro9-7d-kUP" firstAttribute="centerY" secondItem="gc5-Em-gOb" secondAttribute="centerY" id="aQ6-WX-Q20"/>
-                            <constraint firstItem="vkS-eT-Chm" firstAttribute="centerX" secondItem="gc5-Em-gOb" secondAttribute="centerX" id="amd-mE-eLi"/>
-                            <constraint firstItem="vkS-eT-Chm" firstAttribute="top" secondItem="C58-bW-rG8" secondAttribute="top" constant="20" id="zVU-Ey-mhM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="C58-bW-rG8"/>
                     </view>
                     <connections>
-                        <outlet property="planeDetected" destination="vkS-eT-Chm" id="b4W-gD-E96"/>
+                        <outlet property="mirino" destination="ro9-7d-kUP" id="fix-Sg-cRU"/>
                         <outlet property="sceneView" destination="eYs-TS-aWt" id="WKn-5G-lbA"/>
+                        <outlet property="testo" destination="jS0-N6-ck6" id="OmA-Iu-06R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VxR-id-TWC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -431,6 +446,7 @@
     </scenes>
     <resources>
         <image name="BackArrow" width="50" height="50"/>
+        <image name="Background-1" width="1920" height="1080"/>
         <image name="Backpack-1" width="128" height="128"/>
         <image name="Balloons" width="202" height="202"/>
         <image name="Basket" width="202" height="202"/>
@@ -440,7 +456,6 @@
         <image name="TapHint" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5mE-Dc-cU4"/>
         <segue reference="Ltb-W0-um2"/>
     </inferredMetricsTieBreakers>
 </document>

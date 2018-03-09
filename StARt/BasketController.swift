@@ -11,39 +11,51 @@ import ARKit
 
 enum BitMaskCategory: Int {
     case ball = 2
-    case target = 3
+    case net = 3
+    case collider = 4
 }
 
-class BasketController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactDelegate {
-
-    
-    @IBOutlet weak var planeDetected: UILabel!
+class BasketController: UIViewController,SCNPhysicsContactDelegate {
     
     @IBOutlet weak var sceneView: ARSCNView!
+    
+    
+    
+    @IBOutlet weak var testo: UILabel!
+    
+    @IBOutlet weak var mirino: UIButton!
+    
     let configuration = ARWorldTrackingConfiguration()
     
-    var Target: SCNNode?
+    let colorsDictionary = [UIColor.red:"red", UIColor.green:"green", UIColor.black:"black", UIColor.brown:"brown", UIColor.blue:"blue", UIColor.cyan:"cyan", UIColor.gray:"gray", UIColor.orange:"orange"]
+
+    let colorsStrings = ["red", "green", "blue", "black", "brown", "cyan", "gray", "orange"]
+
+    let colors = [UIColor.red, UIColor.green, UIColor.blue, UIColor.black, UIColor.brown, UIColor.cyan, UIColor.gray, UIColor.orange]
     
+    var indexForColor: Int?
     
+    var trigger: SCNNode?
+    var existTrigger: Bool = false
     
-    var basketAdded:Bool {
-        return self.sceneView.scene.rootNode.childNode(withName: "Basket", recursively: false) != nil
-        
-    }
+    var target : SCNNode?
+    
+    var basketAdded:Bool = false
     
     var power: Float = 1.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
+        //self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
+        
         self.configuration.planeDetection = .horizontal
+        
         self.sceneView.session.run(configuration)
+        
         self.sceneView.autoenablesDefaultLighting = true
-        self.sceneView.delegate = self
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
-        
         self.sceneView.addGestureRecognizer(tapGestureRecognizer)
         
         self.sceneView.scene.physicsWorld.contactDelegate = self
@@ -51,96 +63,108 @@ class BasketController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactDel
         // Do any additional setup after loading the view.
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    @objc func handleTap(sender: UITapGestureRecognizer){
         
-        if self.basketAdded == true{
-            guard let pointOfView = self.sceneView.pointOfView else {return}
+        guard let sceneView = sender.view as? ARSCNView else {return}
+        
+        guard let pointOfView = sceneView.pointOfView else {return}
+        
+        let transform = pointOfView.transform
+        let orientation = SCNVector3(-transform.m31, -transform.m32, -transform.m33)
+        let location = SCNVector3(transform.m41, transform.m42, transform.m43)
+        let position = orientation + location
+        
+        if self.basketAdded == false{
+            
+            addBasket(x: 0, y: 0, z: -2.5)
+            
+            self.basketAdded = true;
+        }
+        
+        else{
+            
+            if !self.existTrigger{
+                createTrigger()
+                self.existTrigger = true
+            }
+            
             self.removeOtherBall()
+            
             self.power = 10
-            let transform = pointOfView.transform
-            let location = SCNVector3(transform.m41, transform.m42, transform.m43)
             
-            let orientation = SCNVector3(-transform.m31, -transform.m32, -transform.m33)
+            let ball = SCNNode(geometry: SCNSphere(radius: 0.2))
             
-            let position = location + orientation
+            ball.name = "ball"
             
-            //palla
-            let ball = SCNNode(geometry: SCNSphere(radius: 0.1))
-            ball.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+            self.indexForColor = Int(randomNumbers(from: 0, to: CGFloat(colors.count-1)))
+            
+            let colorToUse = colors[indexForColor!]
+            
+            ball.geometry?.firstMaterial?.diffuse.contents = colorToUse
+            
             ball.position = position
             
-            let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: ball, options: nil))
+            let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: ball))
             
             ball.physicsBody = body
             
-            
-            ball.name = "Basketball"
-            
-            body.restitution = 0.2
-            
             ball.physicsBody?.applyForce(SCNVector3(orientation.x*power, orientation.y*power, orientation.z*power), asImpulse: true)
             
-//            ball.physicsBody?.categoryBitMask = BitMaskCategory.ball.rawValue
-//            ball.physicsBody?.contactTestBitMask = BitMaskCategory.target.rawValue
-//            
+            ball.physicsBody?.categoryBitMask = BitMaskCategory.ball.rawValue
+            ball.physicsBody?.collisionBitMask = BitMaskCategory.net.rawValue | BitMaskCategory.collider.rawValue
+            ball.physicsBody?.contactTestBitMask = BitMaskCategory.collider.rawValue
+            
+            
+            
             self.sceneView.scene.rootNode.addChildNode(ball)
+            
         }
         
     }
     
-   
-    
-    @objc func handleTap(sender: UITapGestureRecognizer){
-        guard let sceneView = sender.view as? ARSCNView else {return}
-        let touchLocation = sender.location(in: sceneView)
-        let hitTestResult = sceneView.hitTest(touchLocation, types: [.existingPlaneUsingExtent])
-        
-        if !hitTestResult.isEmpty{
-            self.addBasket(hitTestResult: hitTestResult.first!)
-        }
-    }
-    
-    func addBasket(hitTestResult: ARHitTestResult){
+    func addBasket(x: Float, y: Float, z: Float){
         
         let basketScene = SCNScene(named: "Media.scnassets/BasketField.scn")
         
-        let basketNode = basketScene?.rootNode.childNode(withName: "Basket", recursively: false)
+        let basketNode = (basketScene?.rootNode.childNode(withName: "Basket", recursively: false))!
         
-        let collider = basketNode?.childNode(withName: "collider", recursively: false)
+        let collider = (basketScene?.rootNode.childNode(withName: "collider", recursively: false))!
         
-//        collider?.physicsBody?.contactTestBitMask = BitMaskCategory.target.rawValue
-//        collider?.physicsBody?.contactTestBitMask = BitMaskCategory.ball.rawValue
-//
-        let positionOfPlane = hitTestResult.worldTransform.columns.3
-        let xPosition = positionOfPlane.x
-        let yPosition = positionOfPlane.y
-        let zPosition = positionOfPlane.z
+        basketNode.position = SCNVector3(x,y,z)
         
-        basketNode?.position = SCNVector3(xPosition,yPosition,zPosition)
+        basketNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: basketNode, options: [SCNPhysicsShape.Option.keepAsCompound: true, SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.concavePolyhedron]))
         
-        basketNode?.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: basketNode!, options: [SCNPhysicsShape.Option.keepAsCompound: true, SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.concavePolyhedron]))
+        basketNode.physicsBody?.restitution = 0.2
         
-        self.sceneView.scene.rootNode.addChildNode(basketNode!)
+        collider.position = SCNVector3(x,y+1.5,z-3.1)
         
+        collider.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: collider, options: nil))
+        
+        basketNode.physicsBody?.categoryBitMask = BitMaskCategory.net.rawValue
+        basketNode.physicsBody?.collisionBitMask = BitMaskCategory.ball.rawValue
+        
+        collider.physicsBody?.categoryBitMask = BitMaskCategory.collider.rawValue
+//        collider.physicsBody?.collisionBitMask = BitMaskCategory.ball.rawValue
+        collider.physicsBody?.contactTestBitMask = BitMaskCategory.ball.rawValue
+        
+        trigger = collider.clone()
+        
+        self.sceneView.scene.rootNode.addChildNode(basketNode)
+        
+        
+    }
+    
+    func loadAimShape(){
+        
+    }
+    
+    func createTrigger(){
+        self.sceneView.scene.rootNode.addChildNode(trigger!)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        
-        guard anchor is ARPlaneAnchor else {return}
-        
-        DispatchQueue.main.async {
-            self.planeDetected.isHidden = false
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3){
-            self.planeDetected.isHidden = true
-        }
-        
     }
     
     func removeOtherBall(){
@@ -151,45 +175,58 @@ class BasketController: UIViewController, ARSCNViewDelegate,SCNPhysicsContactDel
         }
     }
     
+    func randomNumbers(from firstNum: CGFloat, to secondNum: CGFloat) -> CGFloat {
+        return CGFloat(arc4random()) / CGFloat(UINT32_MAX) * abs(firstNum - secondNum) + min(firstNum, secondNum)
+    }
+    
+    
+    
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         
-        print("contatto")
-        
-        /*let nodeA = contact.nodeA
+        let nodeA = contact.nodeA
         let nodeB = contact.nodeB
         
-        if nodeA.physicsBody?.categoryBitMask == BitMaskCategory.target.rawValue {
-            self.Target = nodeA
-        } else if nodeB.physicsBody?.categoryBitMask == BitMaskCategory.target.rawValue {
-            self.Target = nodeB
+        var color : UIColor?
+        
+        if nodeA.name == "collider"{
+            
+            self.target = nodeA
+            
+        } else if nodeB.name == "collider" {
+            
+            self.target = nodeB
         }
         
+        if nodeA.name == "ball"{
+            
+            color = nodeA.geometry?.firstMaterial?.diffuse.contents as? UIColor
+            
+        } else if nodeB.name == "ball" {
+            
+            color = nodeB.geometry?.firstMaterial?.diffuse.contents as? UIColor
+        }
+        
+        DispatchQueue.main.async(){
+            
+            if self.testo.isHidden{
+                self.testo.isHidden = false
+            }
+            
+            self.testo.text = self.colorsDictionary[color!]?.description
+            self.testo.textColor = color
+        }
+        
+        target?.removeFromParentNode()
+        self.existTrigger = false
         
         
-        let confetti = SCNParticleSystem(named: "Media.scnassets/Fire.scnp", inDirectory: nil)
-        confetti?.loops = false
-        confetti?.particleLifeSpan = 4
-        confetti?.emitterShape = Target?.geometry
-        let confettiNode = SCNNode()
-        confettiNode.addParticleSystem(confetti!)
-        confettiNode.position = contact.contactPoint
-        self.sceneView.scene.rootNode.addChildNode(confettiNode)
-        Target?.removeFromParentNode()*/
         
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+
+
 
 func +(left: SCNVector3, right: SCNVector3) -> SCNVector3{
     

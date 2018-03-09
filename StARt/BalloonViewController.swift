@@ -12,6 +12,8 @@ import ARKit
 
 class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
 
+    var player: AVAudioPlayer?
+    
     let colorsDictionary = ["red":UIColor.red, "green":UIColor.green, "black":UIColor.black, "brown":UIColor.brown, "blue":UIColor.blue, "cyan":UIColor.cyan, "gray":UIColor.gray, "orange":UIColor.orange]
     
     let colorsStrings = ["red", "green", "blue", "black", "brown", "cyan", "gray", "orange"]
@@ -81,7 +83,7 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
         bullet.physicsBody?.categoryBitMask = BitMaskCategory.bullet.rawValue
         bullet.physicsBody?.contactTestBitMask = BitMaskCategory.target.rawValue
         bullet.runAction(SCNAction.sequence([SCNAction.wait(duration: 2), SCNAction.removeFromParentNode()]))
-        
+        playSound(filename: "BulletFire", fileextension: "wav", volume: 1)
 //        let bulletScene = SCNScene(named: "Media.scnassets/Nerf.scn")
 //        let bulletNode = bulletScene?.rootNode.childNodes.first
 //        bulletNode?.position = position
@@ -154,6 +156,9 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
             if isRightColor(colorLabel: colorToFind!, balloonColor: Target?.geometry?.firstMaterial?.diffuse.contents as! UIColor) {
                 self.sceneView.scene.rootNode.addChildNode(confettiNode)
                 Target?.removeFromParentNode()
+                
+                playSound(filename: "BalloonPop", fileextension: "wav", volume: 1)
+
             }
             
         } else if nodeB.physicsBody?.categoryBitMask == BitMaskCategory.target.rawValue &&
@@ -165,6 +170,9 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
             if isRightColor(colorLabel: colorToFind!, balloonColor: Target?.geometry?.firstMaterial?.diffuse.contents as! UIColor) {
                 self.sceneView.scene.rootNode.addChildNode(confettiNode)
                 Target?.removeFromParentNode()
+                
+                playSound(filename: "BalloonPop", fileextension: "wav", volume: 1)
+
             }
             
         }
@@ -179,6 +187,24 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
             return true
         }
         return false
+    }
+    
+    func playSound(filename:String, fileextension:String, volume:Float) {
+        guard let url = Bundle.main.url(forResource: filename, withExtension: fileextension) else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            player = try AVAudioPlayer(contentsOf: url)
+            guard let player = player else { return }
+            
+            player.volume = volume
+            player.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
 }
 

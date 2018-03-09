@@ -20,7 +20,7 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
     let colors = [UIColor.red, UIColor.green, UIColor.blue, UIColor.black, UIColor.brown, UIColor.cyan, UIColor.gray, UIColor.orange]
     var colorToFind:String?
     var pickedColors = [Int](repeating: 0, count:8)
-
+    
     
     enum BitMaskCategory: Int {
         case bullet = 2
@@ -158,7 +158,6 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
                 Target?.removeFromParentNode()
                 
                 playSound(filename: "BalloonPop", fileextension: "wav", volume: 1)
-
             }
             
         } else if nodeB.physicsBody?.categoryBitMask == BitMaskCategory.target.rawValue &&

@@ -10,12 +10,14 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var joinButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         var imgArray = [UIImage]()
         imgArray.append(UIImage(named:"JoinITA-1")!)
         imgArray.append(UIImage(named:"JoinITA-2")!)
+        
         
         joinButton.imageView?.animationImages = imgArray
         joinButton.imageView?.animationDuration = 0.5

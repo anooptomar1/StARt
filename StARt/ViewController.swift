@@ -8,8 +8,11 @@
 import UIKit
 import ARKit
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
     var player: AVAudioPlayer?
 
+    @IBOutlet weak var backpackButton: UIButton!
+    @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var tapHintImageView: UIImageView!
     @IBOutlet weak var basketballCollectionView: UICollectionView!
     @IBOutlet weak var golfCollectionView: UICollectionView!
@@ -47,8 +50,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         print("called viewdidLoad")
         load3DModels()
         fillURLArray()
-        
-      
     }
     
     
@@ -60,6 +61,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             self.tapHintImageView.alpha = 0
         })
         })
+        
+        animateBackpack()
     }
     
     override func didReceiveMemoryWarning() {
@@ -72,11 +75,33 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 //        let collectionViewX = basketballCollectionView.frame.origin.x
 //        let collectionViewY = basketballCollectionView.frame.origin.y
         
-        let fadeOutAction = SCNAction.fadeOut(duration: 1)
-        let moveToOriginAction = SCNAction.move(to: SCNVector3(0,0,0), duration: 1)
+        let fadeOutAction = SCNAction.fadeOut(duration: 0.5)
+        let moveToOriginAction = SCNAction.move(to: SCNVector3(0,0,0), duration: 0.5)
         node.runAction(fadeOutAction, completionHandler: {node.removeFromParentNode()
         })
         node.runAction(moveToOriginAction)
+    }
+    
+    func showNumberLabel(number: Int) {
+        numberLabel.text = String(number)
+
+        UIView.animate(withDuration: 2, animations: {
+            self.numberLabel.alpha = 1
+        }, completion: { (terminated) in
+            UIView.animate(withDuration: 2, animations: {self.numberLabel.alpha = 0})
+        })
+    }
+    
+    func animateBackpack(){
+        var imgArray = [UIImage]()
+        imgArray.append(UIImage(named:"Backpack-1")!)
+        imgArray.append(UIImage(named:"Backpack-2")!)
+        
+        
+        backpackButton.imageView?.animationImages = imgArray
+        backpackButton.imageView?.animationDuration = 0.5
+        backpackButton.imageView?.animationRepeatCount = 10000
+        backpackButton.imageView?.startAnimating()
     }
     
     @objc func handleTap(sender: UITapGestureRecognizer) {
@@ -93,7 +118,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let name = results.node.name
             
             playSoundAtIndex(index: countedObjects)
+
             countedObjects+=1
+
+            showNumberLabel(number: countedObjects)
+            
             slideDown(node)
             if(name == "Basketball"){
                 //node.removeFromParentNode()
@@ -251,3 +280,5 @@ extension Int {
     
     var degreesToRadians: Double { return Double(self) * .pi/180}
 }
+
+

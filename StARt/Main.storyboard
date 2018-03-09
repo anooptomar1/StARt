@@ -374,12 +374,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G5W-6s-oKM">
+                                <rect key="frame" x="593" y="10" width="64" height="64"/>
+                                <state key="normal" image="Home"/>
+                                <connections>
+                                    <segue destination="6E3-AN-Wsz" kind="show" id="mt3-iU-MyI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="eYs-TS-aWt" firstAttribute="top" secondItem="C58-bW-rG8" secondAttribute="top" id="5se-a0-Pwn"/>
                             <constraint firstItem="eYs-TS-aWt" firstAttribute="leading" secondItem="C58-bW-rG8" secondAttribute="leading" id="6C7-es-YSd"/>
                             <constraint firstItem="C58-bW-rG8" firstAttribute="trailing" secondItem="eYs-TS-aWt" secondAttribute="trailing" id="DcW-sY-tWT"/>
+                            <constraint firstItem="C58-bW-rG8" firstAttribute="trailing" secondItem="G5W-6s-oKM" secondAttribute="trailing" constant="10" id="GDh-mO-fX2"/>
+                            <constraint firstItem="G5W-6s-oKM" firstAttribute="top" secondItem="C58-bW-rG8" secondAttribute="top" constant="10" id="HtN-ic-Bf1"/>
                             <constraint firstItem="jS0-N6-ck6" firstAttribute="top" secondItem="C58-bW-rG8" secondAttribute="top" constant="50" id="I5P-o4-jYU"/>
                             <constraint firstItem="ro9-7d-kUP" firstAttribute="centerX" secondItem="gc5-Em-gOb" secondAttribute="centerX" id="Icq-sR-4ux"/>
                             <constraint firstItem="jS0-N6-ck6" firstAttribute="leading" secondItem="C58-bW-rG8" secondAttribute="leading" constant="60" id="MoB-51-Wnc"/>
@@ -419,6 +428,13 @@
                                 <color key="textColor" red="0.99999064207077026" green="0.99999362230300903" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8MQ-gS-5ku">
+                                <rect key="frame" x="10" y="10" width="64" height="64"/>
+                                <state key="normal" image="Home"/>
+                                <connections>
+                                    <segue destination="6E3-AN-Wsz" kind="show" id="mTg-gM-zSH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -428,9 +444,11 @@
                             <constraint firstItem="spP-Sp-Cla" firstAttribute="centerX" secondItem="8gf-3j-RSg" secondAttribute="centerX" id="ArS-Fv-bRz"/>
                             <constraint firstItem="d4G-b1-Yam" firstAttribute="bottom" secondItem="spP-Sp-Cla" secondAttribute="bottom" constant="20" id="IEh-Db-hFx"/>
                             <constraint firstItem="ZKH-wG-fLq" firstAttribute="top" secondItem="d4G-b1-Yam" secondAttribute="top" id="Ih0-Rq-yQy"/>
+                            <constraint firstItem="8MQ-gS-5ku" firstAttribute="leading" secondItem="d4G-b1-Yam" secondAttribute="leading" constant="10" id="Lhx-Jz-7wr"/>
                             <constraint firstItem="ZKH-wG-fLq" firstAttribute="leading" secondItem="d4G-b1-Yam" secondAttribute="leading" id="QxH-8u-7TZ"/>
                             <constraint firstItem="IcV-RS-fJa" firstAttribute="centerY" secondItem="8gf-3j-RSg" secondAttribute="centerY" id="cCu-bN-fIe"/>
                             <constraint firstItem="spP-Sp-Cla" firstAttribute="centerX" secondItem="8gf-3j-RSg" secondAttribute="centerX" id="duV-Ey-xgM"/>
+                            <constraint firstItem="8MQ-gS-5ku" firstAttribute="top" secondItem="d4G-b1-Yam" secondAttribute="top" constant="10" id="kxr-ka-VGo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="d4G-b1-Yam"/>
                     </view>
@@ -441,7 +459,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qyo-R5-cXy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2281" y="1097"/>
+            <point key="canvasLocation" x="2280.8095952023991" y="1096.8"/>
         </scene>
     </scenes>
     <resources>
@@ -450,12 +468,14 @@
         <image name="Backpack-1" width="128" height="128"/>
         <image name="Balloons" width="202" height="202"/>
         <image name="Basket" width="202" height="202"/>
+        <image name="Home" width="64" height="64"/>
         <image name="Join" width="448" height="217"/>
         <image name="LaunchScreen" width="1280" height="720"/>
         <image name="Plus" width="24" height="24"/>
         <image name="TapHint" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="mt3-iU-MyI"/>
         <segue reference="Ltb-W0-um2"/>
     </inferredMetricsTieBreakers>
 </document>

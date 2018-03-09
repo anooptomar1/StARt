@@ -52,10 +52,9 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
     func showColorLabel() {
         var colorIndex:Int
         repeat{
-            colorIndex = Int(randomNumbers(firstNum: 0, secondNum: CGFloat(self.colors.count-1)))
+            colorIndex = Int(randomNumbers(firstNum: 0, secondNum: CGFloat(self.colors.count)))
         }while(pickedColors[colorIndex] != 0)
         pickedColors[colorIndex] = 1
-
         self.colorLabel.text = colorsStrings[colorIndex]
         colorToFind = self.colorLabel.text
         UIView.animate(withDuration: 2, animations: {self.colorLabel.alpha = 1})
@@ -122,7 +121,6 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
         animateBalloon(balloon: balloonNode)
         return balloonNode
     }
-
     
     func animateBalloon(balloon:SCNNode) {
         let xMovement = randomNumbers(firstNum: -2, secondNum: 2)
@@ -143,8 +141,8 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
         
         let confetti = SCNParticleSystem(named: "Media.scnassets/Confetti.scnp", inDirectory: nil)
         confetti?.loops = false
-//        confetti?.particleLifeSpan = 4
-//        confetti?.emitterShape = Target?.geometry
+//      confetti?.particleLifeSpan = 4
+//      confetti?.emitterShape = Target?.geometry
         let confettiNode = SCNNode()
         
         if nodeA.physicsBody?.categoryBitMask == BitMaskCategory.target.rawValue &&
@@ -171,18 +169,30 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
                 Target?.removeFromParentNode()
                 
                 playSound(filename: "BalloonPop", fileextension: "wav", volume: 1)
-
             }
-            
         }
-        
     }
     
     func isRightColor(colorLabel:String, balloonColor:UIColor) -> Bool{
         if colorsDictionary[colorLabel] == balloonColor {
             DispatchQueue.main.async {
-                self.showColorLabel()
+                if(!self.areAllColorsPicked()){
+                    self.showColorLabel()
+                }
             }
+            return true
+        }
+        return false
+    }
+    
+    func areAllColorsPicked()->Bool {
+        var countPicked = 0
+        for index in 0..<pickedColors.count {
+            if(pickedColors[index] == 1){
+                countPicked+=1
+            }
+        }
+        if(countPicked == pickedColors.count){
             return true
         }
         return false

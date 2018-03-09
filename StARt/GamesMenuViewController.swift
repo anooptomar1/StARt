@@ -10,23 +10,32 @@ import UIKit
 
 class GamesMenuViewController: UIViewController {
 
-    @IBOutlet weak var menuImageView: UIImageView!
+    var imgBasketArray = [UIImage]()
+    var imgBalloonsArray = [UIImage]()
+    
+    @IBOutlet weak var basketButton: UIButton!
+    @IBOutlet weak var balloonsButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var imgArray = [UIImage]()
-        imgArray.append(UIImage(named:"Background-1")!)
-        imgArray.append(UIImage(named:"Background-2")!)
+        imgBasketArray.append(UIImage(named:"Basket-1")!)
+        imgBasketArray.append(UIImage(named:"Basket-2")!)
         
-        
-        menuImageView.animationImages = imgArray
-        menuImageView.animationDuration = 0.5
-        menuImageView.animationRepeatCount = 10000
-        menuImageView.startAnimating()
-        
-        // Do any additional setup after loading the view.
+        imgBalloonsArray.append(UIImage(named:"Balloons-1")!)
+        imgBalloonsArray.append(UIImage(named:"Balloons-2")!)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        animateButton(images: imgBasketArray, button: basketButton)
+        animateButton(images: imgBalloonsArray, button: balloonsButton)
+    }
+    func animateButton(images: [UIImage], button: UIButton){
+        button.imageView?.animationImages = images
+        button.imageView?.animationDuration = 0.5
+        button.imageView?.animationRepeatCount = 10000
+        button.imageView?.startAnimating()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -32,7 +32,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="35"/>
                                 <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
-                                <state key="normal" image="Join">
+                                <state key="normal" image="JoinITA-1">
                                     <color key="titleColor" red="0.54124671220779419" green="0.26346656680107117" blue="0.5764966607093811" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
@@ -291,9 +291,9 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Qbf-9n-Vr4">
                                         <rect key="frame" x="0.0" y="0.0" width="202" height="231.5"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1yQ-XD-dcn">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1yQ-XD-dcn">
                                                 <rect key="frame" x="0.0" y="0.0" width="202" height="202"/>
-                                                <state key="normal" backgroundImage="Basket"/>
+                                                <state key="normal" image="Basket-1"/>
                                                 <connections>
                                                     <segue destination="bwt-CN-M7g" kind="show" id="YWY-eo-y8Y"/>
                                                 </connections>
@@ -309,9 +309,9 @@
                                     <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="lo8-ml-K9v">
                                         <rect key="frame" x="217" y="0.0" width="202" height="231.5"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBW-ty-oEu">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBW-ty-oEu">
                                                 <rect key="frame" x="0.0" y="0.0" width="202" height="202"/>
-                                                <state key="normal" backgroundImage="Balloons"/>
+                                                <state key="normal" image="Balloons-1"/>
                                                 <connections>
                                                     <segue destination="TPr-0y-qAQ" kind="show" id="pCr-5U-73w"/>
                                                 </connections>
@@ -346,7 +346,8 @@
                         <viewLayoutGuide key="safeArea" id="vgp-gQ-xyu"/>
                     </view>
                     <connections>
-                        <outlet property="menuImageView" destination="wtu-ne-pNB" id="mgC-Xd-0VP"/>
+                        <outlet property="balloonsButton" destination="mBW-ty-oEu" id="XvC-Dd-wsA"/>
+                        <outlet property="basketButton" destination="1yQ-XD-dcn" id="BXa-Ls-9nA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4O-RJ-5Vs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -466,17 +467,16 @@
         <image name="BackArrow" width="50" height="50"/>
         <image name="Background-1" width="1920" height="1080"/>
         <image name="Backpack-1" width="128" height="128"/>
-        <image name="Balloons" width="202" height="202"/>
-        <image name="Basket" width="202" height="202"/>
+        <image name="Balloons-1" width="202" height="202"/>
+        <image name="Basket-1" width="202" height="202"/>
         <image name="Home" width="64" height="64"/>
-        <image name="Join" width="448" height="217"/>
+        <image name="JoinITA-1" width="444" height="213"/>
         <image name="LaunchScreen" width="1280" height="720"/>
         <image name="Plus" width="24" height="24"/>
         <image name="TapHint" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YWY-eo-y8Y"/>
-        <segue reference="mt3-iU-MyI"/>
+        <segue reference="5mE-Dc-cU4"/>
         <segue reference="Ltb-W0-um2"/>
     </inferredMetricsTieBreakers>
 </document>

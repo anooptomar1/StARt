@@ -15,9 +15,14 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         var imgArray = [UIImage]()
-        imgArray.append(UIImage(named:"JoinITA-1")!)
-        imgArray.append(UIImage(named:"JoinITA-2")!)
-        
+       
+        if NSLocale.current.languageCode == "it" {
+            imgArray.append(UIImage(named:"JoinITA-1")!)
+            imgArray.append(UIImage(named:"JoinITA-2")!)
+        }else {
+            imgArray.append(UIImage(named:"JoinENG-1")!)
+            imgArray.append(UIImage(named:"JoinENG-2")!)
+        }
         
         joinButton.imageView?.animationImages = imgArray
         joinButton.imageView?.animationDuration = 0.5

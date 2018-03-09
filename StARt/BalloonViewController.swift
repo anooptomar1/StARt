@@ -143,8 +143,8 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
         
         let confetti = SCNParticleSystem(named: "Media.scnassets/Confetti.scnp", inDirectory: nil)
         confetti?.loops = false
-        confetti?.particleLifeSpan = 4
-        confetti?.emitterShape = Target?.geometry
+//        confetti?.particleLifeSpan = 4
+//        confetti?.emitterShape = Target?.geometry
         let confettiNode = SCNNode()
         
         if nodeA.physicsBody?.categoryBitMask == BitMaskCategory.target.rawValue &&

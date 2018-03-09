@@ -275,6 +275,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background-1" translatesAutoresizingMaskIntoConstraints="NO" id="wtu-ne-pNB">
+                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iHy-4W-yyI">
                                 <rect key="frame" x="10" y="10" width="104" height="50"/>
                                 <state key="normal" title="Button" image="BackArrow"/>
@@ -282,9 +285,6 @@
                                     <segue destination="aoN-iV-Gk2" kind="showDetail" id="Ltb-W0-um2"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background-1" translatesAutoresizingMaskIntoConstraints="NO" id="wtu-ne-pNB">
-                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
-                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="vfa-3B-1gj">
                                 <rect key="frame" x="123.5" y="72" width="419" height="231.5"/>
                                 <subviews>
@@ -475,6 +475,7 @@
         <image name="TapHint" width="200" height="200"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="YWY-eo-y8Y"/>
         <segue reference="mt3-iU-MyI"/>
         <segue reference="Ltb-W0-um2"/>
     </inferredMetricsTieBreakers>

@@ -13,14 +13,14 @@ import ARKit
 class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
 
     var player: AVAudioPlayer?
+    var colorsPlayer: AVAudioPlayer?
     
-    let colorsDictionary = ["red":UIColor.red, "green":UIColor.green, "black":UIColor.black, "brown":UIColor.brown, "blue":UIColor.blue, "cyan":UIColor.cyan, "gray":UIColor.gray, "orange":UIColor.orange]
+    let colorsDictionary = ["red":UIColor.red, "green":UIColor.green, "black":UIColor.black, "brown":UIColor.brown, "blue":UIColor.blue, "purple":UIColor.purple, "gray":UIColor.gray, "orange":UIColor.orange]
     
-    let colorsStrings = ["red", "green", "blue", "black", "brown", "cyan", "gray", "orange"]
-    let colors = [UIColor.red, UIColor.green, UIColor.blue, UIColor.black, UIColor.brown, UIColor.cyan, UIColor.gray, UIColor.orange]
+    let colorsStrings = ["red", "green", "blue", "black", "brown", "purple", "gray", "orange"]
+    let colors = [UIColor.red, UIColor.green, UIColor.blue, UIColor.black, UIColor.brown, UIColor.purple, UIColor.gray, UIColor.orange]
     var colorToFind:String?
     var pickedColors = [Int](repeating: 0, count:8)
-    
     
     enum BitMaskCategory: Int {
         case bullet = 2
@@ -58,6 +58,7 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
         self.colorLabel.text = colorsStrings[colorIndex]
         colorToFind = self.colorLabel.text
         UIView.animate(withDuration: 2, animations: {self.colorLabel.alpha = 1})
+        playSoundByKey(key: colorsStrings[colorIndex])
     }
     func hideColorLabel() {
         UIView.animate(withDuration: 2, animations: {self.colorLabel.alpha = 0})
@@ -210,6 +211,23 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
             
             player.volume = volume
             player.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func playSoundByKey(key:String) {
+        guard let url = Bundle.main.url(forResource: "ColorsEN/"+key, withExtension: "wav") else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            colorsPlayer = try AVAudioPlayer(contentsOf: url)
+            guard let player = colorsPlayer else { return }
+            
+            colorsPlayer?.play()
             
         } catch let error {
             print(error.localizedDescription)

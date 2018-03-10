@@ -20,7 +20,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     var countedObjects = 0
     var numbersAudioURLContainer:[URL]?
-
+    var alreadyTapped = false
     
     //Arrays and images for  collection views
     let basketballImage = UIImage(named: "Basketball")
@@ -76,7 +76,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         let fadeOutAction = SCNAction.fadeOut(duration: 0.5)
         let moveToOriginAction = SCNAction.move(to: SCNVector3(0,0,0), duration: 0.5)
-        node.runAction(fadeOutAction, completionHandler: {node.removeFromParentNode()
+        node.runAction(fadeOutAction, completionHandler: {node.removeFromParentNode();self.alreadyTapped = false
         })
         node.runAction(moveToOriginAction)
     }
@@ -116,25 +116,39 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let node = results.node
             let name = results.node.name
             
-            playSoundAtIndex(index: countedObjects)
-
-            countedObjects+=1
-
-            showNumberLabel(number: countedObjects)
             
-            slideDown(node)
+            if(!alreadyTapped){
+                playSoundAtIndex(index: countedObjects)
+
+                countedObjects+=1
+
+                showNumberLabel(number: countedObjects)
+            }
+            
             if(name == "Basketball"){
                 //node.removeFromParentNode()
-                basketballImages.append(basketballImage!)
-                basketballCollectionView.reloadData()
+                if(!alreadyTapped) {
+                    basketballImages.append(basketballImage!)
+                    basketballCollectionView.reloadData()
+                    alreadyTapped = true
+                    slideDown(node)
+                }
             }else if(name == "GolfBall"){
                 //node.removeFromParentNode()
-                golfImages.append(golfBallImage!)
-                golfCollectionView.reloadData()
+                if(!alreadyTapped){
+                    golfImages.append(golfBallImage!)
+                    golfCollectionView.reloadData()
+                    alreadyTapped = true
+                    slideDown(node)
+                }
             }else {
                //node.removeFromParentNode()
+                if(!alreadyTapped){
                 nerfImages.append(nerfImage!)
                 nerfCollectionView.reloadData()
+                alreadyTapped = true
+                slideDown(node)
+                }
             }
         }
     }
@@ -240,7 +254,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         //in questo modo ottengo un array di url (dai quali ottengo i file mp3), l'array è ordinato a seconda della disposizione dei file nella directory audioFiles
         numbersAudioURLContainer = []
         for index in 0...19 {
-            if NSLocale.current.languageCode == "it" {
+            if NSLocale.preferredLanguages[0] == "it-IT" {
                 guard let url = Bundle.main.url(forResource: "NumbersIT/\(index+1)", withExtension: "wav") else { return}
                 numbersAudioURLContainer?.insert(url, at: index)
             }else {

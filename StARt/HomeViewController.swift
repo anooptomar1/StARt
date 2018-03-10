@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         var imgArray = [UIImage]()
        
-        if NSLocale.current.languageCode == "it" {
+        if NSLocale.preferredLanguages[0] == "it-IT" {
             imgArray.append(UIImage(named:"JoinITA-1")!)
             imgArray.append(UIImage(named:"JoinITA-2")!)
         }else {

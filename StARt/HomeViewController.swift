@@ -15,7 +15,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         var imgArray = [UIImage]()
-       
+        
         if NSLocale.preferredLanguages[0] == "it-IT" {
             imgArray.append(UIImage(named:"JoinITA-1")!)
             imgArray.append(UIImage(named:"JoinITA-2")!)
@@ -24,18 +24,19 @@ class HomeViewController: UIViewController {
             imgArray.append(UIImage(named:"JoinENG-2")!)
         }
         
-        joinButton.imageView?.animationImages = imgArray
-        joinButton.imageView?.animationDuration = 0.5
-        joinButton.imageView?.animationRepeatCount = 10000
-        joinButton.imageView?.startAnimating()
+       animateButton(images: imgArray, button: joinButton)
         
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidAppear(_ animated: Bool) {
+        var imgArray = [UIImage]()
+        
+        imgArray.append(UIImage(named: "welcomePage-1")!)
+        imgArray.append(UIImage(named: "welcomePage-2")!)
+        animateImageView(images: imgArray, view: imageView, duration: 1)
     }
     
-
-    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
 }

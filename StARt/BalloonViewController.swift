@@ -27,6 +27,8 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
         case target = 3
     }
     
+    
+    @IBOutlet weak var homeButton: UIButton!
     @IBOutlet weak var colorLabel: UILabel!
     @IBOutlet weak var sceneView: ARSCNView!
     let configuration = ARWorldTrackingConfiguration()
@@ -44,6 +46,10 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        var imgArray = [UIImage]()
+        imgArray.append(UIImage(named: "Home-1")!)
+        imgArray.append(UIImage(named: "Home-2")!)
+        animateButton(images: imgArray, button: homeButton)
         addTargets()
         showColorLabel()
     }
@@ -57,8 +63,8 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
         pickedColors[colorIndex] = 1
         self.colorLabel.text = colorsStrings[colorIndex]
         colorToFind = self.colorLabel.text
-        UIView.animate(withDuration: 2, animations: {self.colorLabel.alpha = 1})
         playSoundByKey(key: colorsStrings[colorIndex])
+        UIView.animate(withDuration: 2, animations: {self.colorLabel.alpha = 1})
     }
     func hideColorLabel() {
         UIView.animate(withDuration: 2, animations: {self.colorLabel.alpha = 0})
@@ -218,20 +224,41 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
     }
     
     func playSoundByKey(key:String) {
-        guard let url = Bundle.main.url(forResource: "ColorsEN/"+key, withExtension: "wav") else { return }
-        
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-            try AVAudioSession.sharedInstance().setActive(true)
+        if NSLocale.preferredLanguages[0] == "it-IT" {
+            guard let url = Bundle.main.url(forResource: "ColorsIT/\(key)", withExtension: "wav") else { return}
             
-            colorsPlayer = try AVAudioPlayer(contentsOf: url)
-            guard let player = colorsPlayer else { return }
-            
-            colorsPlayer?.play()
-            
-        } catch let error {
-            print(error.localizedDescription)
+            do {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                try AVAudioSession.sharedInstance().setActive(true)
+                
+                colorsPlayer = try AVAudioPlayer(contentsOf: url)
+                guard let colorsPlayer = self.colorsPlayer else { return }
+                
+                colorsPlayer.play()
+                
+            } catch let error {
+                print(error.localizedDescription)
+            }
+
+        }else {
+            guard let url = Bundle.main.url(forResource: "ColorsEN/\(key)", withExtension: "wav") else { return}
+
+            do {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                try AVAudioSession.sharedInstance().setActive(true)
+                
+                colorsPlayer = try AVAudioPlayer(contentsOf: url)
+                guard let colorsPlayer = self.colorsPlayer else { return }
+                
+                colorsPlayer.play()
+                
+            } catch let error {
+                print(error.localizedDescription)
+            }
         }
+        
+        
+      
     }
 }
 

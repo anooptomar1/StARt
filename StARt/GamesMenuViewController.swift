@@ -29,12 +29,6 @@ class GamesMenuViewController: UIViewController {
         animateButton(images: imgBasketArray, button: basketButton)
         animateButton(images: imgBalloonsArray, button: balloonsButton)
     }
-    func animateButton(images: [UIImage], button: UIButton){
-        button.imageView?.animationImages = images
-        button.imageView?.animationDuration = 0.5
-        button.imageView?.animationRepeatCount = 10000
-        button.imageView?.startAnimating()
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

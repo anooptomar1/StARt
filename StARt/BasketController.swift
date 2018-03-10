@@ -20,6 +20,7 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate {
     @IBOutlet weak var sceneView: ARSCNView!
     
     
+    @IBOutlet weak var homeButton: UIButton!
     
     @IBOutlet weak var testo: UILabel!
     
@@ -61,6 +62,15 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate {
         self.sceneView.scene.physicsWorld.contactDelegate = self
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        var imgArray = [UIImage]()
+
+        imgArray.append(UIImage(named: "Home-1")!)
+        imgArray.append(UIImage(named: "Home-2")!)
+        
+        animateButton(images: imgArray, button: homeButton)
     }
     
     @objc func handleTap(sender: UITapGestureRecognizer){
@@ -227,9 +237,3 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate {
 }
 
 
-
-func +(left: SCNVector3, right: SCNVector3) -> SCNVector3{
-    
-    return SCNVector3Make(left.x + right.x, left.y + right.y, left.z + right.z )
-    
-}

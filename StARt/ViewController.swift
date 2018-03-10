@@ -109,7 +109,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let hitTest = sceneViewTappedOn.hitTest(touchCoordinates)
         
         if hitTest.isEmpty{
-            print("didn't touch anything")
+            //print("didn't touch anything")
         }
         else{
             let results = hitTest.first!

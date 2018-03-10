@@ -11,13 +11,18 @@ import ARKit
 
 
 class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
-
+    
     var player: AVAudioPlayer?
     var colorsPlayer: AVAudioPlayer?
     
-    let colorsDictionary = ["red":UIColor.red, "green":UIColor.green, "black":UIColor.black, "brown":UIColor.brown, "blue":UIColor.blue, "purple":UIColor.purple, "gray":UIColor.gray, "orange":UIColor.orange]
+    let colorsDictionaryEN = ["red":UIColor.red, "green":UIColor.green, "black":UIColor.black, "brown":UIColor.brown, "blue":UIColor.blue, "purple":UIColor.purple, "gray":UIColor.gray, "orange":UIColor.orange]
+    let colorsStringsEN = ["red", "green", "blue", "black", "brown", "purple", "gray", "orange"]
+    let colorsDictionaryIT = ["rosso":UIColor.red, "verde":UIColor.green, "blu":UIColor.blue, "nero":UIColor.black, "marrone":UIColor.brown, "viola":UIColor.purple, "grigio":UIColor.gray, "arancione":UIColor.orange]
+    let colorsStringsIT = ["rosso", "verde", "blu", "nero", "marrone", "viola", "grigio", "arancione"]
     
-    let colorsStrings = ["red", "green", "blue", "black", "brown", "purple", "gray", "orange"]
+    var colorsStrings = [String]()
+    var colorsDictionary = [String:UIColor]()
+    
     let colors = [UIColor.red, UIColor.green, UIColor.blue, UIColor.black, UIColor.brown, UIColor.purple, UIColor.gray, UIColor.orange]
     var colorToFind:String?
     var pickedColors = [Int](repeating: 0, count:8)
@@ -38,11 +43,20 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         sceneView.session.run(configuration)
-//        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+        //        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
         self.sceneView.autoenablesDefaultLighting = true
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         self.sceneView.addGestureRecognizer(gestureRecognizer)
         self.sceneView.scene.physicsWorld.contactDelegate = self
+        
+        //Change dictionary and string array of colors in relation to device language
+        if NSLocale.preferredLanguages[0] == "it-IT" {
+            colorsStrings = colorsStringsIT
+            colorsDictionary = colorsDictionaryIT
+        }else {
+            colorsStrings = colorsStringsEN
+            colorsDictionary = colorsDictionaryEN
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -90,18 +104,18 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
         bullet.physicsBody?.contactTestBitMask = BitMaskCategory.target.rawValue
         bullet.runAction(SCNAction.sequence([SCNAction.wait(duration: 2), SCNAction.removeFromParentNode()]))
         playSound(filename: "BulletFire", fileextension: "wav", volume: 1)
-//        let bulletScene = SCNScene(named: "Media.scnassets/Nerf.scn")
-//        let bulletNode = bulletScene?.rootNode.childNodes.first
-//        bulletNode?.position = position
-//        let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: bulletNode!, options: nil))
-//        bulletNode?.physicsBody = body
-//        bulletNode?.physicsBody?.applyForce(SCNVector3(orientation.x*power, orientation.y*power, orientation.z*power), asImpulse: true)
-//        body.isAffectedByGravity = false
-//        self.sceneView.scene.rootNode.addChildNode(bulletNode!)
+        //        let bulletScene = SCNScene(named: "Media.scnassets/Nerf.scn")
+        //        let bulletNode = bulletScene?.rootNode.childNodes.first
+        //        bulletNode?.position = position
+        //        let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: bulletNode!, options: nil))
+        //        bulletNode?.physicsBody = body
+        //        bulletNode?.physicsBody?.applyForce(SCNVector3(orientation.x*power, orientation.y*power, orientation.z*power), asImpulse: true)
+        //        body.isAffectedByGravity = false
+        //        self.sceneView.scene.rootNode.addChildNode(bulletNode!)
         
     }
     
-   func addTargets() {
+    func addTargets() {
         for colorIndex in 0..<colors.count {
             let balloonNode = self.addBalloon(x: Float(randomNumbers(firstNum: -3, secondNum: 3)), y: Float(randomNumbers(firstNum: 0, secondNum: 1)), z: Float(randomNumbers(firstNum: -2, secondNum: -4)))
             
@@ -120,10 +134,10 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
         let balloonNode = (balloonScene?.rootNode.childNode(withName: "balloon", recursively: false))!
         balloonNode.position = SCNVector3(x,y,z)
         balloonNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
-        let body = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: balloonNode, options: nil))
-        balloonNode.physicsBody = body
-        balloonNode.physicsBody?.categoryBitMask = BitMaskCategory.target.rawValue
-        balloonNode.physicsBody?.contactTestBitMask = BitMaskCategory.bullet.rawValue
+//        let body = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: balloonNode, options: nil))
+//        balloonNode.physicsBody = body
+//        balloonNode.physicsBody?.categoryBitMask = BitMaskCategory.target.rawValue
+       // balloonNode.physicsBody?.contactTestBitMask = BitMaskCategory.bullet.rawValue
         self.sceneView.scene.rootNode.addChildNode(balloonNode)
         animateBalloon(balloon: balloonNode)
         return balloonNode
@@ -148,8 +162,8 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
         
         let confetti = SCNParticleSystem(named: "Media.scnassets/Confetti.scnp", inDirectory: nil)
         confetti?.loops = false
-//      confetti?.particleLifeSpan = 4
-//      confetti?.emitterShape = Target?.geometry
+        //      confetti?.particleLifeSpan = 4
+        //      confetti?.emitterShape = Target?.geometry
         let confettiNode = SCNNode()
         
         if nodeA.physicsBody?.categoryBitMask == BitMaskCategory.target.rawValue &&
@@ -239,10 +253,10 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
             } catch let error {
                 print(error.localizedDescription)
             }
-
+            
         }else {
             guard let url = Bundle.main.url(forResource: "ColorsEN/\(key)", withExtension: "wav") else { return}
-
+            
             do {
                 try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
                 try AVAudioSession.sharedInstance().setActive(true)
@@ -258,7 +272,7 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
         }
         
         
-      
+        
     }
 }
 

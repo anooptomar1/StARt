@@ -17,6 +17,7 @@ func animateButton(images: [UIImage], button: UIButton){
     button.imageView?.startAnimating()
 }
 
+//ImageView animation
 func animateImageView(images: [UIImage], view: UIImageView, duration: TimeInterval){
     view.animationImages = images
     view.animationDuration = duration

@@ -134,10 +134,10 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
         let balloonNode = (balloonScene?.rootNode.childNode(withName: "balloon", recursively: false))!
         balloonNode.position = SCNVector3(x,y,z)
         balloonNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
-//        let body = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: balloonNode, options: nil))
-//        balloonNode.physicsBody = body
-//        balloonNode.physicsBody?.categoryBitMask = BitMaskCategory.target.rawValue
-       // balloonNode.physicsBody?.contactTestBitMask = BitMaskCategory.bullet.rawValue
+        let body = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: balloonNode, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.convexHull, SCNPhysicsShape.Option.scale: SCNVector3(2,2,2)]))
+        balloonNode.physicsBody = body
+        balloonNode.physicsBody?.categoryBitMask = BitMaskCategory.target.rawValue
+        balloonNode.physicsBody?.contactTestBitMask = BitMaskCategory.bullet.rawValue
         self.sceneView.scene.rootNode.addChildNode(balloonNode)
         animateBalloon(balloon: balloonNode)
         return balloonNode

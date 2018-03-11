@@ -13,13 +13,11 @@ enum BitMaskCategory: Int {
     case ball = 2
     case net = 3
     case collider = 4
+    case ground = 5
 }
 
-class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollectionViewDataSource {
+class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollectionViewDataSource, ARSCNViewDelegate {
    
-    
-    
-    
     
     @IBOutlet weak var basketballCollectionView: UICollectionView!
     var basketballImages = [UIImage]()
@@ -33,13 +31,21 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
     
     @IBOutlet weak var mirino: UIButton!
     
+    var colorsPlayer: AVAudioPlayer?
+
+    
     let configuration = ARWorldTrackingConfiguration()
     
-    let colorsDictionary = [UIColor.red:"red", UIColor.green:"green", UIColor.black:"black", UIColor.brown:"brown", UIColor.blue:"blue", UIColor.cyan:"cyan", UIColor.gray:"gray", UIColor.orange:"orange"]
-
-    let colorsStrings = ["red", "green", "blue", "black", "brown", "cyan", "gray", "orange"]
-
-    let colors = [UIColor.red, UIColor.green, UIColor.blue, UIColor.black, UIColor.brown, UIColor.cyan, UIColor.gray, UIColor.orange]
+    let colorsDictionaryEN = [UIColor.red:"red", UIColor.green:"green", UIColor.black:"black", UIColor.brown:"brown", UIColor.blue:"blue", UIColor.purple:"violet", UIColor.gray:"gray", UIColor.orange:"orange"]
+    
+    let colors = [UIColor.red, UIColor.green, UIColor.blue, UIColor.black, UIColor.brown, UIColor.purple, UIColor.gray, UIColor.orange]
+    
+    let colorsDictionaryIT = [UIColor.red:"rosso", UIColor.green:"verde", UIColor.black:"nero", UIColor.brown:"marrone", UIColor.blue:"blu", UIColor.purple :"viola", UIColor.gray:"grigio", UIColor.orange:"arancione"]
+    
+    
+    let colorsStringsIT = ["rosso", "verde", "blu", "nero", "marrone", "viola", "grigio", "arancione"]
+    
+    var colorsDictionary = [UIColor:String]()
     
     var indexForColor: Int?
     
@@ -52,8 +58,19 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
     
     var power: Float = 1.0
     
+    let ball = SCNNode(geometry: SCNSphere(radius: 0.2))
+
+    var ballAdded: Bool = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Change dictionary and string array of colors in relation to device language
+        if NSLocale.preferredLanguages[0] == "it-IT" {
+            colorsDictionary = colorsDictionaryIT
+        }else {
+            colorsDictionary = colorsDictionaryEN
+        }
         
         //self.sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
         
@@ -68,7 +85,10 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
         
         self.sceneView.scene.physicsWorld.contactDelegate = self
         
-        // Do any additional setup after loading the view.
+        self.sceneView.delegate = self
+
+        ball.name = "ball"
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -82,22 +102,24 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
     
     @objc func handleTap(sender: UITapGestureRecognizer){
         
-        guard let sceneView = sender.view as? ARSCNView else {return}
+        //guard let sceneView = sender.view as? ARSCNView else {return}
         
         guard let pointOfView = sceneView.pointOfView else {return}
         
         let transform = pointOfView.transform
         let orientation = SCNVector3(-transform.m31, -transform.m32, -transform.m33)
-        let location = SCNVector3(transform.m41, transform.m42, transform.m43)
-        let position = orientation + location
         
         if self.basketAdded == false{
             
             addBasket(x: 0, y: 0, z: -2.5)
             
             self.basketAdded = true;
+            
+            DispatchQueue.main.async {
+                self.loadBall()
+            }
         }
-        
+            
         else{
             
             if !self.existTrigger{
@@ -105,21 +127,8 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
                 self.existTrigger = true
             }
             
-            self.removeOtherBall()
+            self.ballAdded = false
             
-            self.power = 10
-            
-            let ball = SCNNode(geometry: SCNSphere(radius: 0.2))
-            
-            ball.name = "ball"
-            
-            self.indexForColor = Int(randomNumbers(from: 0, to: CGFloat(colors.count-1)))
-            
-            let colorToUse = colors[indexForColor!]
-            
-            ball.geometry?.firstMaterial?.diffuse.contents = colorToUse
-            
-            ball.position = position
             
             let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: ball))
             
@@ -127,15 +136,46 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
             
             ball.physicsBody?.applyForce(SCNVector3(orientation.x*power, orientation.y*power, orientation.z*power), asImpulse: true)
             
+            
             ball.physicsBody?.categoryBitMask = BitMaskCategory.ball.rawValue
             ball.physicsBody?.collisionBitMask = BitMaskCategory.net.rawValue | BitMaskCategory.collider.rawValue
             ball.physicsBody?.contactTestBitMask = BitMaskCategory.collider.rawValue
             
-            
-            
-            self.sceneView.scene.rootNode.addChildNode(ball)
-            
         }
+        
+    }
+    
+    func loadBall(){
+        
+        self.removeOtherBall()
+        
+        guard let pointOfView = sceneView.pointOfView else { return }
+        let transform = pointOfView.transform
+        let orientation = SCNVector3(-transform.m31, -transform.m32, -transform.m33)
+        let location = SCNVector3(transform.m41, transform.m42, transform.m43)
+        let position = orientation + location
+        
+        self.indexForColor = Int(randomNumbers(from: 0, to: CGFloat(colors.count)))
+        
+        let colorToUse = colors[indexForColor!]
+        
+        ball.geometry?.firstMaterial?.diffuse.contents = colorToUse
+        
+        let ballPosition = SCNVector3(0,-0.3,0) + position
+        
+        ball.position = ballPosition
+        
+        let body = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: ball))
+        
+        ball.physicsBody = body
+        
+        ball.physicsBody?.categoryBitMask = BitMaskCategory.ball.rawValue
+        ball.physicsBody?.collisionBitMask = BitMaskCategory.net.rawValue | BitMaskCategory.collider.rawValue
+        ball.physicsBody?.contactTestBitMask = BitMaskCategory.collider.rawValue | BitMaskCategory.ground.rawValue
+        
+        self.sceneView.scene.rootNode.addChildNode(ball)
+        
+        self.ballAdded = true
         
     }
     
@@ -147,6 +187,8 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
         
         let collider = (basketScene?.rootNode.childNode(withName: "collider", recursively: false))!
         
+        let floor = (basketScene?.rootNode.childNode(withName: "floor", recursively: false))!
+        
         basketNode.position = SCNVector3(x,y,z)
         
         basketNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: basketNode, options: [SCNPhysicsShape.Option.keepAsCompound: true, SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.concavePolyhedron]))
@@ -157,23 +199,28 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
         
         collider.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: collider, options: nil))
         
+        floor.position = SCNVector3(x,y-3,z-3.5)
+        
+        floor.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: floor, options: nil))
+        
+        floor.physicsBody?.categoryBitMask = BitMaskCategory.ground.rawValue
+        floor.physicsBody?.collisionBitMask = BitMaskCategory.ball.rawValue
+        floor.physicsBody?.contactTestBitMask = BitMaskCategory.ball.rawValue
+        
         basketNode.physicsBody?.categoryBitMask = BitMaskCategory.net.rawValue
         basketNode.physicsBody?.collisionBitMask = BitMaskCategory.ball.rawValue
         
         collider.physicsBody?.categoryBitMask = BitMaskCategory.collider.rawValue
-//        collider.physicsBody?.collisionBitMask = BitMaskCategory.ball.rawValue
+        //        collider.physicsBody?.collisionBitMask = BitMaskCategory.ball.rawValue
         collider.physicsBody?.contactTestBitMask = BitMaskCategory.ball.rawValue
         
         trigger = collider.clone()
         
         self.sceneView.scene.rootNode.addChildNode(basketNode)
-        
+        self.sceneView.scene.rootNode.addChildNode(floor)
         
     }
     
-    func loadAimShape(){
-        
-    }
     
     func createTrigger(){
         self.sceneView.scene.rootNode.addChildNode(trigger!)
@@ -186,7 +233,7 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
     
     func removeOtherBall(){
         self.sceneView.scene.rootNode.enumerateChildNodes{ (node, _) in
-            if node.name == "Basketball"{
+            if node.name == "ball"{
                 node.removeFromParentNode()
             }
         }
@@ -197,6 +244,42 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
     }
     
     
+    func playSoundByKey(key:String) {
+        
+        if NSLocale.preferredLanguages[0] == "it-IT" {
+            guard let url = Bundle.main.url(forResource: "ColorsIT/\(key)", withExtension: "wav") else { return}
+            
+            do {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                try AVAudioSession.sharedInstance().setActive(true)
+                
+                colorsPlayer = try AVAudioPlayer(contentsOf: url)
+                guard let colorsPlayer = self.colorsPlayer else { return }
+                
+                colorsPlayer.play()
+                
+            } catch let error {
+                print(error.localizedDescription)
+            }
+            
+        }else {
+            guard let url = Bundle.main.url(forResource: "ColorsEN/\(key)", withExtension: "wav") else { return}
+            
+            do {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                try AVAudioSession.sharedInstance().setActive(true)
+                
+                colorsPlayer = try AVAudioPlayer(contentsOf: url)
+                guard let colorsPlayer = self.colorsPlayer else { return }
+                
+                colorsPlayer.play()
+                
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+        
+    }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         
@@ -205,13 +288,31 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
         
         var color : UIColor?
         
+        if nodeA.name == "floor" || nodeB.name == "floor"{
+            if nodeA.name == "ball"{
+                target = nodeA
+            }
+            else if nodeB.name == "ball"{
+                target = nodeB
+            }
+            
+            target?.removeFromParentNode()
+            self.existTrigger = false
+            self.loadBall()
+            self.createTrigger()
+            
+            return
+        }
+        
         if nodeA.name == "collider"{
             
             self.target = nodeA
+            target?.removeFromParentNode()
             
         } else if nodeB.name == "collider" {
             
             self.target = nodeB
+            target?.removeFromParentNode()
         }
         
         if nodeA.name == "ball"{
@@ -223,20 +324,36 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
             color = nodeB.geometry?.firstMaterial?.diffuse.contents as? UIColor
         }
         
+        // changing the text and play audio
         DispatchQueue.main.async(){
             
             if self.testo.isHidden{
                 self.testo.isHidden = false
             }
-            
-            self.testo.text = self.colorsDictionary[color!]?.description
+            let colore: String = (self.colorsDictionary[color!]?.description)!
+            self.testo.text = colore
+            self.playSoundByKey(key:colore)
             self.testo.textColor = color
         }
         
-        target?.removeFromParentNode()
-        self.existTrigger = false
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
+        
+        if self.ballAdded {
+            guard let pointOfView = sceneView.pointOfView else { return }
+            let transform = pointOfView.transform
+            let orientation = SCNVector3(-transform.m31, -transform.m32, -transform.m33)
+            let location = SCNVector3(transform.m41, transform.m42, transform.m43)
+            let position = orientation + location
+            
+            let ballPosition = SCNVector3(0,-0.3,0) + position
+            
+            ball.position = ballPosition
+        }
         
     }
+        
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return basketballImages.count

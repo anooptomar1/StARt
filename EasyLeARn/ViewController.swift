@@ -60,14 +60,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func viewDidAppear(_ animated: Bool) {
         //Initial Hint for tapping
-        UIView.animate(withDuration: 2, animations: {
-            self.tapHintImageView.alpha = 1
-        }, completion: {(terminated) in UIView.animate(withDuration: 2, animations: {
-            self.tapHintImageView.alpha = 0
-        })
-        })
+//        UIView.animate(withDuration: 2, animations: {
+//            self.tapHintImageView.alpha = 1
+//        }, completion: {(terminated) in UIView.animate(withDuration: 2, animations: {
+//            self.tapHintImageView.alpha = 0
+//        })
+//        })
         
-        print(countedObjects)
         animateBackpack()
         
         teacherImageView.isHidden=true
@@ -104,11 +103,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     
-   
-    
-
-    
-    
 //Set of animations for Teacher
     
     func animateTeacherToCollectionViews(){
@@ -119,7 +113,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
         }, completion: {
             (terminated) in
-            self.playSound(filename: "Tutorial/Tutorial-2", fileextension: "wav", volume: 1)
+            
+            if NSLocale.preferredLanguages[0] == "it-IT" {
+                self.playSound(filename: "TutorialIT/Tutorial-2", fileextension: "wav", volume: 1)
+            }else {
+                self.playSound(filename: "TutorialEN/Tutorial-2", fileextension: "wav", volume: 1)
+            }
         })
     }
     
@@ -131,7 +130,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
         }, completion: {
             (terminated) in
-            self.playSound(filename: "Tutorial/Tutorial-3", fileextension: "wav", volume: 1)
+            if NSLocale.preferredLanguages[0] == "it-IT" {
+                self.playSound(filename: "TutorialIT/Tutorial-3", fileextension: "wav", volume: 1)
+            }else {
+                self.playSound(filename: "TutorialEN/Tutorial-3", fileextension: "wav", volume: 1)
+            }
         })
     }
     
@@ -162,7 +165,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.teacherImageView.isHidden = false
         self.teacherImageView.translatesAutoresizingMaskIntoConstraints = true
         animateTeacher()
-        playSound(filename: "Tutorial/Tutorial-1", fileextension: "wav", volume: 1)
+        if NSLocale.preferredLanguages[0] == "it-IT" {
+            self.playSound(filename: "TutorialIT/Tutorial-1", fileextension: "wav", volume: 1)
+        }else {
+            self.playSound(filename: "TutorialEN/Tutorial-1", fileextension: "wav", volume: 1)
+        }
     }
     
 //End animations

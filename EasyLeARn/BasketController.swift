@@ -14,10 +14,12 @@ enum BitMaskCategory: Int {
     case net = 3
     case collider = 4
     case ground = 5
+
 }
 
 class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollectionViewDataSource, ARSCNViewDelegate {
    
+    
     
     @IBOutlet weak var basketballCollectionView: UICollectionView!
     var basketballImages = [UIImage]()
@@ -56,7 +58,7 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
     
     var basketAdded:Bool = false
     
-    var power: Float = 1.0
+    var power: Float = 10
     
     let ball = SCNNode(geometry: SCNSphere(radius: 0.2))
 
@@ -108,10 +110,12 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
         
         let transform = pointOfView.transform
         let orientation = SCNVector3(-transform.m31, -transform.m32, -transform.m33)
+        let location = SCNVector3(transform.m41, transform.m42, transform.m43)
+        let position = orientation + location
         
         if self.basketAdded == false{
             
-            addBasket(x: 0, y: 0, z: -2.5)
+            addBasket(x: position.x , y: position.y , z: -2.5)
             
             self.basketAdded = true;
             

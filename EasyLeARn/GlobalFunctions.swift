@@ -13,15 +13,16 @@ import ARKit
 func animateButton(images: [UIImage], button: UIButton){
     button.imageView?.animationImages = images
     button.imageView?.animationDuration = 0.5
-    button.imageView?.animationRepeatCount = 10000
+    button.imageView?.animationRepeatCount = 0
     button.imageView?.startAnimating()
 }
 
 //ImageView animation
 func animateImageView(images: [UIImage], view: UIImageView, duration: TimeInterval){
+    view.stopAnimating()
     view.animationImages = images
     view.animationDuration = duration
-    view.animationRepeatCount = 10000
+    view.animationRepeatCount = 0
     view.startAnimating()
 }
 

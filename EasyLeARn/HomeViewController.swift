@@ -27,12 +27,17 @@ class HomeViewController: UIViewController {
        animateButton(images: imgArray, button: joinButton)
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("called")
 
+    }
     override func viewDidAppear(_ animated: Bool) {
         var imgArray = [UIImage]()
-        
         imgArray.append(UIImage(named: "welcomePage-1")!)
         imgArray.append(UIImage(named: "welcomePage-2")!)
+        imgArray.append(UIImage(named: "welcomePage-3")!)
+
         animateImageView(images: imgArray, view: imageView, duration: 1)
     }
     

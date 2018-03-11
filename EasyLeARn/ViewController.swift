@@ -9,6 +9,8 @@ import UIKit
 import ARKit
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    @IBOutlet weak var teacherImageView: UIImageView!
+
     var player: AVAudioPlayer?
 
     @IBOutlet weak var backpackButton: UIButton!
@@ -51,6 +53,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         fillURLArray()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+       
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         //Initial Hint for tapping
@@ -61,7 +66,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         })
         })
         
+        print(countedObjects)
         animateBackpack()
+        startTutorial()
     }
     
     override func didReceiveMemoryWarning() {
@@ -91,17 +98,68 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         })
     }
     
+    
+   
+    
+
+    
+    
+//Set of animations for Teacher
+    
+    func animateTeacherToCollectionViews(){
+        self.teacherImageView.translatesAutoresizingMaskIntoConstraints = true
+        UIView.animate(withDuration: 2, animations: {
+            self.teacherImageView.center.x = (self.basketballCollectionView.center.x-(self.basketballCollectionView.bounds.width/2)+100)
+            self.teacherImageView.center.y = (self.basketballCollectionView.center.y - (self.basketballCollectionView.bounds.height/2)-20)
+
+        }, completion: {
+            (terminated) in
+            self.playSound(filename: "Tutorial/Tutorial-2", fileextension: "wav", volume: 1)
+        })
+    }
+    
+    func animateTeacherToBackpack(){
+        self.teacherImageView.translatesAutoresizingMaskIntoConstraints = true
+        UIView.animate(withDuration: 2, animations: {
+            self.teacherImageView.center.x = (self.backpackButton.center.x-(self.backpackButton.bounds.width/2)-70)
+            self.teacherImageView.center.y = (self.teacherImageView.center.y)
+            
+        }, completion: {
+            (terminated) in
+            self.playSound(filename: "Tutorial/Tutorial-3", fileextension: "wav", volume: 1)
+        })
+    }
+    
+    func animateTeacher(){
+        var imgArray=[UIImage]()
+        imgArray.append(UIImage(named: "Teacher-1")!)
+        imgArray.append(UIImage(named: "Teacher-2")!)
+        animateImageView(images: imgArray, view: self.teacherImageView, duration: 2)
+    }
+    
+    func animateTeacherReversed(){
+        self.teacherImageView.stopAnimating()
+        var imgArray=[UIImage]()
+        imgArray.append(UIImage(named: "TeacherReversed-1")!)
+        imgArray.append(UIImage(named: "TeacherReversed-2")!)
+        animateImageView(images: imgArray, view: self.teacherImageView, duration: 2)
+    }
+
     func animateBackpack(){
         var imgArray = [UIImage]()
         imgArray.append(UIImage(named:"Backpack-1")!)
         imgArray.append(UIImage(named:"Backpack-2")!)
         
-        
-        backpackButton.imageView?.animationImages = imgArray
-        backpackButton.imageView?.animationDuration = 0.5
-        backpackButton.imageView?.animationRepeatCount = 10000
-        backpackButton.imageView?.startAnimating()
+        animateButton(images: imgArray, button: backpackButton)
     }
+    
+    func startTutorial(){
+        self.teacherImageView.translatesAutoresizingMaskIntoConstraints = true
+        animateTeacher()
+        playSound(filename: "Tutorial/Tutorial-1", fileextension: "wav", volume: 1)
+    }
+    
+//End animations
     
     @objc func handleTap(sender: UITapGestureRecognizer) {
         let sceneViewTappedOn = sender.view as! SCNView
@@ -116,6 +174,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let node = results.node
             let name = results.node.name
             
+            if(countedObjects == 0){
+                animateTeacherReversed()
+                animateTeacherToCollectionViews()
+            }
+            if(countedObjects == 3){
+                animateTeacher()
+                animateTeacherToBackpack()
+            }
             
             if(!alreadyTapped){
                 playSoundAtIndex(index: countedObjects)

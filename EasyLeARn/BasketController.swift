@@ -119,32 +119,37 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
             
             self.basketAdded = true;
             
-            DispatchQueue.main.async {
-                self.loadBall()
+            if(!basketballImages.isEmpty){
+                DispatchQueue.main.async {
+                    self.loadBall()
+                }
             }
         }
             
         else{
-            
-            if !self.existTrigger{
-                createTrigger()
-                self.existTrigger = true
+            if(!basketballImages.isEmpty){
+                basketballImages.removeLast()
+                basketballCollectionView.reloadData()
+                                
+                if !self.existTrigger{
+                    createTrigger()
+                    self.existTrigger = true
+                }
+                
+                self.ballAdded = false
+                
+                
+                let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: ball))
+                
+                ball.physicsBody = body
+                
+                ball.physicsBody?.applyForce(SCNVector3(orientation.x*power, orientation.y*power, orientation.z*power), asImpulse: true)
+                
+                
+                ball.physicsBody?.categoryBitMask = BitMaskCategory.ball.rawValue
+                ball.physicsBody?.collisionBitMask = BitMaskCategory.net.rawValue | BitMaskCategory.collider.rawValue
+                ball.physicsBody?.contactTestBitMask = BitMaskCategory.collider.rawValue
             }
-            
-            self.ballAdded = false
-            
-            
-            let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: ball))
-            
-            ball.physicsBody = body
-            
-            ball.physicsBody?.applyForce(SCNVector3(orientation.x*power, orientation.y*power, orientation.z*power), asImpulse: true)
-            
-            
-            ball.physicsBody?.categoryBitMask = BitMaskCategory.ball.rawValue
-            ball.physicsBody?.collisionBitMask = BitMaskCategory.net.rawValue | BitMaskCategory.collider.rawValue
-            ball.physicsBody?.contactTestBitMask = BitMaskCategory.collider.rawValue
-            
         }
         
     }

@@ -23,6 +23,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var countedObjects = 0
     var numbersAudioURLContainer:[URL]?
     var alreadyTapped = false
+    var isTutorialEnabled:Bool = true
     
     //Arrays and images for  collection views
     let basketballImage = UIImage(named: "Basketball")
@@ -68,7 +69,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         print(countedObjects)
         animateBackpack()
-        startTutorial()
+        
+        teacherImageView.isHidden=true
+        if(isTutorialEnabled) {
+            startTutorial()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -154,6 +159,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func startTutorial(){
+        self.teacherImageView.isHidden = false
         self.teacherImageView.translatesAutoresizingMaskIntoConstraints = true
         animateTeacher()
         playSound(filename: "Tutorial/Tutorial-1", fileextension: "wav", volume: 1)
@@ -174,13 +180,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let node = results.node
             let name = results.node.name
             
-            if(countedObjects == 0){
-                animateTeacherReversed()
-                animateTeacherToCollectionViews()
-            }
-            if(countedObjects == 3){
-                animateTeacher()
-                animateTeacherToBackpack()
+            
+            if(isTutorialEnabled) {
+                //Teacher animations for tutorial
+                if(countedObjects == 0){
+                    animateTeacherReversed()
+                    animateTeacherToCollectionViews()
+                }
+                if(countedObjects == 3){
+                    animateTeacher()
+                    animateTeacherToBackpack()
+                }
+                //End teacher animations
             }
             
             if(!alreadyTapped){
@@ -349,6 +360,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     //END AUDIO SETTINGS
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destViewController:GamesMenuViewController = segue.destination as! GamesMenuViewController
+        destViewController.basketballImages = self.basketballImages
+        destViewController.golfImages = self.golfImages
+        destViewController.nerfImages = self.nerfImages
+        player?.stop()
+    }
     
 }
 func randomNumbers(firstNum: CGFloat, secondNum: CGFloat) -> CGFloat {

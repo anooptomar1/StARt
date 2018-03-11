@@ -10,11 +10,14 @@ import UIKit
 import ARKit
 
 
-class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
+class BalloonViewController: UIViewController, UICollectionViewDataSource, SCNPhysicsContactDelegate{
     
     var player: AVAudioPlayer?
     var colorsPlayer: AVAudioPlayer?
     
+    @IBOutlet weak var nerfCollectionView: UICollectionView!
+    var nerfImages = [UIImage]()
+
     let colorsDictionaryEN = ["red":UIColor.red, "green":UIColor.green, "black":UIColor.black, "brown":UIColor.brown, "blue":UIColor.blue, "purple":UIColor.purple, "gray":UIColor.gray, "orange":UIColor.orange]
     let colorsStringsEN = ["red", "green", "blue", "black", "brown", "purple", "gray", "orange"]
     let colorsDictionaryIT = ["rosso":UIColor.red, "verde":UIColor.green, "blu":UIColor.blue, "nero":UIColor.black, "marrone":UIColor.brown, "viola":UIColor.purple, "grigio":UIColor.gray, "arancione":UIColor.orange]
@@ -92,26 +95,25 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
         let location = SCNVector3(transform.m41, transform.m42, transform.m43)
         let position = orientation + location
         
-        let bullet = SCNNode(geometry: SCNSphere(radius: 0.1))
-        bullet.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-        bullet.position = position
-        let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: bullet, options: nil))
-        body.isAffectedByGravity = false
-        bullet.physicsBody = body
-        bullet.physicsBody?.applyForce(SCNVector3(orientation.x*power, orientation.y*power, orientation.z*power), asImpulse: true)
-        self.sceneView.scene.rootNode.addChildNode(bullet)
-        bullet.physicsBody?.categoryBitMask = BitMaskCategory.bullet.rawValue
-        bullet.physicsBody?.contactTestBitMask = BitMaskCategory.target.rawValue
-        bullet.runAction(SCNAction.sequence([SCNAction.wait(duration: 2), SCNAction.removeFromParentNode()]))
-        playSound(filename: "BulletFire", fileextension: "wav", volume: 1)
-        //        let bulletScene = SCNScene(named: "Media.scnassets/Nerf.scn")
-        //        let bulletNode = bulletScene?.rootNode.childNodes.first
-        //        bulletNode?.position = position
-        //        let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: bulletNode!, options: nil))
-        //        bulletNode?.physicsBody = body
-        //        bulletNode?.physicsBody?.applyForce(SCNVector3(orientation.x*power, orientation.y*power, orientation.z*power), asImpulse: true)
-        //        body.isAffectedByGravity = false
-        //        self.sceneView.scene.rootNode.addChildNode(bulletNode!)
+        
+        if(nerfImages.count > 0){
+            self.nerfImages.removeLast()
+            self.nerfCollectionView.reloadData()
+            let bullet = SCNNode(geometry: SCNSphere(radius: 0.1))
+            bullet.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+            bullet.position = position
+            let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: bullet, options: nil))
+            body.isAffectedByGravity = false
+            bullet.physicsBody = body
+            bullet.physicsBody?.applyForce(SCNVector3(orientation.x*power, orientation.y*power, orientation.z*power), asImpulse: true)
+            self.sceneView.scene.rootNode.addChildNode(bullet)
+            bullet.physicsBody?.categoryBitMask = BitMaskCategory.bullet.rawValue
+            bullet.physicsBody?.contactTestBitMask = BitMaskCategory.target.rawValue
+            bullet.runAction(SCNAction.sequence([SCNAction.wait(duration: 2), SCNAction.removeFromParentNode()]))
+            playSound(filename: "BulletFire", fileextension: "wav", volume: 1)
+        } else{
+            
+        }
         
     }
     
@@ -271,8 +273,23 @@ class BalloonViewController: UIViewController, SCNPhysicsContactDelegate{
             }
         }
         
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return nerfImages.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "nerfCell", for: indexPath) as! NerfCollectionViewCell
         
-        
+        cell.imageView.image = nerfImages[indexPath.row]
+        return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destViewController = segue.destination as! GamesMenuViewController
+        destViewController.nerfImages = self.nerfImages
     }
 }
 

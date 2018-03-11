@@ -15,7 +15,14 @@ enum BitMaskCategory: Int {
     case collider = 4
 }
 
-class BasketController: UIViewController,SCNPhysicsContactDelegate {
+class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollectionViewDataSource {
+   
+    
+    
+    
+    
+    @IBOutlet weak var basketballCollectionView: UICollectionView!
+    var basketballImages = [UIImage]()
     
     @IBOutlet weak var sceneView: ARSCNView!
     
@@ -229,10 +236,23 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate {
         target?.removeFromParentNode()
         self.existTrigger = false
         
-        
-        
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return basketballImages.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "basketballCell", for: indexPath) as! BasketballCollectionViewCell
+        
+        cell.imageView.image = basketballImages[indexPath.row]
+        return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destViewController = segue.destination as! GamesMenuViewController
+        destViewController.basketballImages = self.basketballImages
+    }
 
 }
 

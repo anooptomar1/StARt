@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina5_5" orientation="landscape">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina5_9" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,20 +15,20 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleAspectFit" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="akx-dG-laM">
-                                <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
+                            <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="welcomePage" translatesAutoresizingMaskIntoConstraints="NO" id="akx-dG-laM">
+                                <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="akx-dG-laM" secondAttribute="bottom" id="6wK-wx-fbY"/>
-                            <constraint firstItem="akx-dG-laM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="98l-Fb-cUr"/>
-                            <constraint firstItem="akx-dG-laM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Y5w-Bj-LgV"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="akx-dG-laM" secondAttribute="trailing" id="aQa-v5-igc"/>
+                            <constraint firstItem="akx-dG-laM" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="19l-Yk-4RE"/>
+                            <constraint firstItem="akx-dG-laM" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="BV6-sT-U6q"/>
+                            <constraint firstItem="akx-dG-laM" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="KU9-93-HRx"/>
+                            <constraint firstItem="akx-dG-laM" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailing" id="ijD-w2-bEE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -39,6 +39,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchScreen" width="1280" height="720"/>
+        <image name="welcomePage" width="2436" height="1370"/>
     </resources>
 </document>

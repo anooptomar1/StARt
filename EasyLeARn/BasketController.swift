@@ -23,6 +23,7 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
     
     @IBOutlet weak var basketballCollectionView: UICollectionView!
     var basketballImages = [UIImage]()
+    var nerfImages = [UIImage]()
     
     @IBOutlet weak var sceneView: ARSCNView!
     
@@ -378,6 +379,7 @@ class BasketController: UIViewController,SCNPhysicsContactDelegate, UICollection
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destViewController = segue.destination as! GamesMenuViewController
         destViewController.basketballImages = self.basketballImages
+        destViewController.nerfImages = self.nerfImages
     }
 
 }

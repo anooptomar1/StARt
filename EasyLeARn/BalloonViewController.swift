@@ -17,7 +17,8 @@ class BalloonViewController: UIViewController, UICollectionViewDataSource, SCNPh
     
     @IBOutlet weak var nerfCollectionView: UICollectionView!
     var nerfImages = [UIImage]()
-
+    var basketballImages = [UIImage]()
+    
     let colorsDictionaryEN = ["red":UIColor.red, "green":UIColor.green, "black":UIColor.black, "brown":UIColor.brown, "blue":UIColor.blue, "purple":UIColor.purple, "gray":UIColor.gray, "orange":UIColor.orange]
     let colorsStringsEN = ["red", "green", "blue", "black", "brown", "purple", "gray", "orange"]
     let colorsDictionaryIT = ["rosso":UIColor.red, "verde":UIColor.green, "blu":UIColor.blue, "nero":UIColor.black, "marrone":UIColor.brown, "viola":UIColor.purple, "grigio":UIColor.gray, "arancione":UIColor.orange]
@@ -290,6 +291,7 @@ class BalloonViewController: UIViewController, UICollectionViewDataSource, SCNPh
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destViewController = segue.destination as! GamesMenuViewController
         destViewController.nerfImages = self.nerfImages
+        destViewController.basketballImages = self.basketballImages
     }
 }
 

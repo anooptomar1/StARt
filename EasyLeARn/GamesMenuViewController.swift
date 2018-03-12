@@ -83,9 +83,13 @@ class GamesMenuViewController: UIViewController, UICollectionViewDataSource {
         if(segue.identifier == "playBalloons"){
             let destViewController = segue.destination as! BalloonViewController
             destViewController.nerfImages = self.nerfImages
+            destViewController.basketballImages = self.basketballImages
+
         }else if(segue.identifier == "playBasket"){
             let destViewController = segue.destination as! BasketController
             destViewController.basketballImages = self.basketballImages
+            destViewController.nerfImages = self.nerfImages
+
         } else {
             let destViewController = segue.destination as! ViewController
             destViewController.isTutorialEnabled = false

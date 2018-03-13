@@ -59,20 +59,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //Initial Hint for tapping
-//        UIView.animate(withDuration: 2, animations: {
-//            self.tapHintImageView.alpha = 1
-//        }, completion: {(terminated) in UIView.animate(withDuration: 2, animations: {
-//            self.tapHintImageView.alpha = 0
-//        })
-//        })
+
         
         animateBackpack()
         
         teacherImageView.isHidden=true
-        if(isTutorialEnabled) {
-            startTutorial()
-        }
+//        if(isTutorialEnabled) {
+//            startTutorial()
+//        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -187,19 +181,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let node = results.node
             let name = results.node.name
             
-            
-            if(isTutorialEnabled) {
-                //Teacher animations for tutorial
-                if(countedObjects == 0){
-                    animateTeacherReversed()
-                    animateTeacherToCollectionViews()
-                }
-                if(countedObjects == 3){
-                    animateTeacher()
-                    animateTeacherToBackpack()
-                }
-                //End teacher animations
-            }
+//
+//            if(isTutorialEnabled) {
+//                //Teacher animations for tutorial
+//                if(countedObjects == 0){
+//                    animateTeacherReversed()
+//                    animateTeacherToCollectionViews()
+//                }
+//                if(countedObjects == 3){
+//                    animateTeacher()
+//                    animateTeacherToBackpack()
+//                }
+//                //End teacher animations
+//            }
             
             if(!alreadyTapped){
                 playSoundAtIndex(index: countedObjects)
